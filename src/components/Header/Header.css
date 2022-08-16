@@ -1,0 +1,15 @@
+.nav{
+    background-color: white;
+    box-shadow: 1px 1px 3px #80808052;
+    gap: 20px;
+    padding: 8px 4px;
+}
+
+.profile-pic{
+    margin-right: 10px;
+}
+
+img{
+    width: 27px;
+    border-radius: 50%;
+}
