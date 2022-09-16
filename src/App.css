@@ -1,8 +1,17 @@
 
-
-.container{
+/* .container{
   margin: 0;
-  border: 1px solid blue;
   width: min(100% - 2rem);
+} */
+
+.body-container{
+  display: flex;
+  background-color:  #ecd9fb30; 
+}
+
+.page-container{
+  /* background-color:  #ecd9fb30; */
+  width: 100%;
+  margin: 25px 34px;
 }
 
