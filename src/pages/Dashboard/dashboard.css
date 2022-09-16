@@ -1,0 +1,99 @@
+.dashboard-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.title{
+    font-weight: 600;
+}
+
+.card-container{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.card{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3px 20px;
+    gap: 20px;
+    border: none;
+    box-shadow: var(--box-shadow);
+}
+
+.card-icon{
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.student-icon{
+    background: linear-gradient(1deg, #ece5f4fe 0%, #583e72 96%);
+}
+
+.active-student-icon{
+    background: linear-gradient(1deg, #ece5f4fe 0%, #dc3545 96%);
+}
+
+.staff-icon{
+    background: linear-gradient(1deg, #ece5f4fe 0%, #43819f 96%);
+}
+
+.team-icon{
+    background: linear-gradient(1deg, #ece5f4fe 0%, #4caf50 96%);
+}
+
+.card-icon img{
+    filter: brightness(0) invert(1);
+}
+.card-title{
+    color: var(--text);
+    margin-bottom: 0;
+  
+}
+
+.card-quantity{
+    font-weight: 600;
+}
+
+.row2{
+    display: flex;
+    flex-direction: column;
+}
+
+.users-present{
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--box-shadow);
+    margin: 15px 0px;
+    background-color: white;
+}
+
+.user-profile-container{
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+    padding: 5px;
+}
+
+.user-present-title{
+    color: var(--text);
+    padding: 5px;
+    font-weight:600;
+}
+.user-profile{
+    color: white;
+    /* background-color: #f1471f; */
+    background: linear-gradient(52deg, #583e72 20%, #583e72 42%, #f63c25d1 67%);
+    border-radius: 50%;
+    padding: 12px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
