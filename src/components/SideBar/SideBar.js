@@ -56,7 +56,7 @@ const SideBar = () => {
                 <div className="nav-upper">
                     <div className="nav-heading">
                         {isExpanded && <div className="nav-brand">
-                            <h6>Attendance System WEB</h6>
+                            <h4>Roll Kall</h4>
                         </div>}
                         <button className={isExpanded ? 'hamburger hamburger-in' : 'hamburger hamburger-out'}
                             onClick={() => setExpandState(!isExpanded)}>

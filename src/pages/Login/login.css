@@ -1,0 +1,96 @@
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgba(255, 255, 255, 0.795);
+    opacity: 1; /* Firefox */
+  }
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url('../../assets/images/loginbg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-container{
+    display: flex;
+    align-content: flex-start;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    height: 500px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.41);
+    padding: 50px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.41);
+    border-radius: 9px;
+}
+
+form h3{
+    color: white;
+}
+
+form input{
+    padding: 15px 10px;
+    width: 450px;
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    background: none;
+    color: white;
+}
+
+form input[type="password"]{
+    font-family: Verdana;
+  /* font-size: 16px; */
+}
+
+form .password{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.input-wrapper{
+    border-bottom: 4px solid white;
+    /* background: white; */
+    border-radius: 3px;
+    color: white;
+}
+.input-wrapper .icon{
+    font-size: 27px;
+    color:#e5dfcdd9
+   
+}
+
+.input-wrapper .password-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-wrapper .password-container .view-password{
+    font-size: 26px;
+    color: #e5dfcdd9;
+    cursor: pointer;
+}
+
+input[type='submit']{
+    background-color: rgb(0 0 0 / 20%);
+    border-radius: 5px;
+    transition: 0.8s ease;
+}
+
+input[type="submit"]:hover{
+   background-color:  rgb(0 0 0 / 63%);
+}
