@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import NotificationService from "../../services/notification_service/notification_service";
+import AuthService from "../../services/authentication_services/auth_service";
 
 const Login = () => {
   const user = <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>;
@@ -17,6 +18,7 @@ const Login = () => {
   const eyeSlash = <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>;
 
   const notificationService = new NotificationService();
+  const authService = new AuthService();
 
   const formData = {
     email : '',
@@ -46,7 +48,6 @@ const Login = () => {
   }
 
   const validateEmail = (email) => {
-    console.log(typeof email)
     var regExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if(email && String(email).toLowerCase().match(regExp)){
@@ -58,8 +59,7 @@ const Login = () => {
   }
 
   const validatePassword = (password) => {
-    console.log(typeof password)
-    if(password.length < 6){
+    if(password.length < 4){
       notificationService.showError('Invalid Password');
       return false;
     }else{
@@ -67,11 +67,12 @@ const Login = () => {
     }
   }
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
       e.preventDefault();   
     //  console.log(formData)
       if(validateEmail(formData.email) && validatePassword(formData.password)){
-        notificationService.showSuccess('Valid Credentials')
+        const data = await authService.login(formData);
+       // console.log(data);
       }else{
         return;
       }

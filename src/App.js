@@ -6,12 +6,25 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import {BrowserRouter as Router,Route, Routes} from "react-router-dom";
 import Users from './pages/UsersPage/Users';
 import Login from './pages/Login/Login';
+import jwtDecode from 'jwt-decode';
 function App() {
 
-  const token = false;
+  let authenticated = false;
+  const token = localStorage.getItem('access_token');
+  if(token){
+    const decodedToken = jwtDecode(token);
+    console.log(decodedToken.exp);
+    if(decodedToken.exp * 1000 < Date.now()){
+      authenticated = false;
+    }else{
+      authenticated = true;
+    }
+  }
+
+  const auth = false;
   return (
 
-    !token ? <Login/> :
+    !auth ? <Login/> :
     <Router>
       <div >
       <Header></Header>
