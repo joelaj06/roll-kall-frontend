@@ -15,7 +15,7 @@ class HTTPClient {
       let response = await this.#client.get(endpoint);
       return response;
     } catch (err) {
-      if (err.response.status != 404) {
+      if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
           this.#notificationService.showError(message);
@@ -31,7 +31,7 @@ class HTTPClient {
       let response = await this.#client.put(endpoint, body);
       return response;
     } catch (err) {
-      if (err.response.status != 404) {
+      if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
           this.#notificationService.showError(message);
@@ -46,7 +46,7 @@ class HTTPClient {
       let response = await this.#client.post(endpoint, body);
       return response;
     } catch (err) {
-      if (err.response.status != 404) {
+      if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
           this.#notificationService.showError(message);
@@ -61,7 +61,7 @@ class HTTPClient {
       let response = await this.#client.delete(endpoint);
       return response;
     } catch (err) {
-      if (err.response.status != 404) {
+      if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
           this.#notificationService.showError(message);
