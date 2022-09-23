@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import NotificationService from "../../services/notification_service/notification_service";
 import AuthService from "../../services/authentication_services/auth_service";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
 const Login = () => {
   const user = <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>;
@@ -20,15 +21,15 @@ const Login = () => {
   const notificationService = new NotificationService();
   const authService = new AuthService();
 
-  const formData = {
-    email : '',
-    password : ''
-  }
-  
-  // states
-  const [isVisible, setVisibility] = useState(false);
-  const [isEnabled, setEnableButton] = useState(true);
+  // const formData = {
+  //   email: "",
+  //   password: "",
+  // };
 
+  // states
+  const [formData, setFormData] = useState({email: '', password: ''});
+  const [isVisible, setVisibility] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const showPassword = () => {
     const password = document.getElementById("password");
@@ -39,43 +40,54 @@ const Login = () => {
     }
   };
 
-  const onEmailInputChange = (event) => { 
-    formData.email = event.target.value;
-  }
+  const onEmailInputChange = (event) => {
+   setFormData({...formData, email : event.target.value});
+  };
 
   const onPasswordInputChange = (event) => {
-     formData.password = event.target.value; 
-  }
+    setFormData({...formData, password : event.target.value});
+  };
 
   const validateEmail = (email) => {
     var regExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    if(email && String(email).toLowerCase().match(regExp)){
+    if (
+      email &&
+      String(email)
+        .toLowerCase()
+        .match(regExp)
+    ) {
       return true;
-    }else{
-       notificationService.showError('Fields Cannot Be Empty');
-       return false;
+    } else {
+      notificationService.showError("Fields Cannot Be Empty");
+      return false;
     }
-  }
+  };
 
   const validatePassword = (password) => {
-    if(password.length < 4){
-      notificationService.showError('Invalid Password');
+    if (password.length < 4) {
+      notificationService.showError("Invalid Password");
       return false;
-    }else{
+    } else {
       return true;
     }
-  }
+  };
 
   const onFormSubmit = async (e) => {
-      e.preventDefault();   
+    e.preventDefault();
     //  console.log(formData)
-      if(validateEmail(formData.email) && validatePassword(formData.password)){
-        const data = await authService.login(formData);
-       // console.log(data);
-      }else{
-        return;
+    if (validateEmail(formData.email) && validatePassword(formData.password)) {
+      setLoading(true);
+      console.log(isLoading);
+      const data = await authService.login(formData);
+      if (typeof data === "undefined") {
+        setLoading(false);
+        console.log(isLoading);
+        console.log(data);
       }
+    } else {
+      return;
+    }
   };
 
   return (
@@ -92,6 +104,7 @@ const Login = () => {
                   name="email"
                   id="email"
                   placeholder="Email"
+                  value={formData.email}
                   onChange={onEmailInputChange}
                 />
               </div>
@@ -103,6 +116,7 @@ const Login = () => {
                     name="password"
                     id="password"
                     placeholder="Password"
+                    value={formData.password}
                     onChange={onPasswordInputChange}
                   />
                   <span
@@ -117,7 +131,8 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <input type="submit" value="Sign in" />
+            {isLoading ? <LoadingSpinner/>: 
+            <input type="submit" disabled={isLoading} value="Sign in" />}
           </form>
         </div>
       </div>

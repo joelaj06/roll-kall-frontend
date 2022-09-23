@@ -22,7 +22,6 @@ class NotificationService {
   };
 
   showError = (message) => {
-    console.log("showing error");
     return toast.error(message, this.#toastConfig);
   };
 

@@ -12,7 +12,6 @@ import AuthService from "./services/authentication_services/auth_service";
 function App() {
   let authService = new AuthService();
   const isAuthenticated = authService.authenticated;
-  console.log("checking auth");
   console.log(isAuthenticated);
   return isAuthenticated ? (
     <Router>

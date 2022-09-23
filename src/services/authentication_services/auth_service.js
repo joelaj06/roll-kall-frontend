@@ -23,7 +23,8 @@ class AuthService {
 
   login = async (body) => {
     const result = await this.#client.post(Endpoints.login, body);
-    if(result){
+    console.log(result)
+    if(typeof result !== 'undefined'){
         localStorage.setItem('access_token', `Bearer ${result.data.token}`);
         const token = localStorage.getItem('access_token');
         if(token){
@@ -36,6 +37,9 @@ class AuthService {
             this.authenticated = true;
           }
         }
+        return result.data;
+    }else{
+      return result;
     }
   };
 

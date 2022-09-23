@@ -98,12 +98,14 @@ input[type='submit']{
     background-color: rgb(0 0 0 / 20%);
     border-radius: 5px;
     transition: 0.8s ease;
+    cursor: pointer;
 }
 
-.disable-submit-btn{
-    color: grey;
+input[type='submit']:active{
+    transition: 0.05s ease;
+    box-shadow: inset 0px 0px 9px white;
+    font-size: 24px;
 }
-
 
 input[type="submit"]:hover{
    background-color:  rgb(0 0 0 / 63%);
