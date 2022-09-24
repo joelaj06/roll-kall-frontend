@@ -23,6 +23,7 @@ import AuthService from "./services/authentication_services/auth_service";
     useEffect( () => {
        const fetchUser = async () =>{
         let userData = await authService.loadUserData();
+        if(!userData) return;
         setUser(userData.data);
         console.log(user);
        };
@@ -33,7 +34,7 @@ import AuthService from "./services/authentication_services/auth_service";
     <Router>
       <Fragment>
         <div>
-          <Header user={user}></Header>
+          <Header  user={user}></Header>
           <div className="body-container">
             <SideBar user={user}></SideBar>
             <div className="page-container">

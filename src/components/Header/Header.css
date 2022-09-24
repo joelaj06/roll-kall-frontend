@@ -4,6 +4,9 @@
     gap: 20px;
     padding: 8px 4px;
     height: 45px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .profile-pic{

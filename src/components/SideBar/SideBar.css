@@ -3,15 +3,19 @@
     background-color: var(--primary);
     width: 215px;
     height: calc(100vh - 45px);
-    position: relative;
+    position: sticky;
     color: white;
     transition: 0.4s;
-  
+    bottom: 0;
+    top: 45px;
 }
 
 .nav-upper, .nav-heading, .nav-menu, .menu-item{
     display: grid;
+    overflow: hidden;
 }
+
+
 
 .nav-heading{
     grid-template-columns: 2fr, 1fr;
@@ -98,6 +102,10 @@
 
 .menu-item:hover{
     color: var(--secondary);
+    background-color: var(--primaryLight);
+}
+
+.active-menu-item{
     background-color: var(--primaryLight);
 }
 

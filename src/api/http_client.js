@@ -34,8 +34,10 @@ class HTTPClient {
       if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
-          this.#notificationService.showError(message);
-        }
+          if(message.toLowerCase().includes('authorized')){
+            const newMessage = 'You need to Sign in to continue';
+            this.#notificationService.showError(newMessage);
+          }        }
       } else {
         this.#notificationService.showError("No Server Response");
       }
@@ -48,9 +50,12 @@ class HTTPClient {
       return response;
     } catch (err) {
       if (err.response.status !== 404) {
-        const message = err.response.data.message;
+        const message =  err.response.data.message;
         if (message) {
-          this.#notificationService.showError(message);
+          if(message.toLowerCase().includes('authorized')){
+            const newMessage = 'You need to Sign in to continue';
+            this.#notificationService.showError(newMessage);
+          }
         }
       } else {
         this.#notificationService.showError("No Server Response");
