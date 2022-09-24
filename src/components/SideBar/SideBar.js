@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartLine, faUsers, faPeopleGroup, faGear, faRightFromBracket, faShareFromSquare, faBars, faChevronRight, faChevronLeft } from '@fortawesome/free-solid-svg-icons'
-import { Link, Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SideBar = () => {
+const SideBar = ({user}) => {
     const [isExpanded, setExpandState] = useState(false);
     const dashboardIcon = <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>
     const users = <FontAwesomeIcon icon={faUsers}></FontAwesomeIcon>
@@ -78,8 +78,8 @@ const SideBar = () => {
                 <div className="nav-footer">
                     {isExpanded && <div className="nav-details">
                         <div className="nav-footer-info">
-                            <p className="nav-footer-user-account-name">Efya Doe</p>
-                            <p className="nav-footer-user-account-type">System Administrator</p>
+                            <p className="nav-footer-user-account-name">{`${user.first_name} ${user.last_name}`}</p>
+                            <p className="nav-footer-user-account-type">{user.role.name}</p>
                         </div>
                     </div>}
                     <span className='logout-icon'>{logout}</span>

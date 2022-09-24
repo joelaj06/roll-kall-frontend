@@ -63,6 +63,11 @@
     flex-direction: column;
 }
 
+.chart-card{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
 .users-present{
     display: flex;
     flex-direction: column;

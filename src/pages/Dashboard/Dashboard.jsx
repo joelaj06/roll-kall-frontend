@@ -1,8 +1,6 @@
 import React from 'react';
 import Chart from '../../components/Chart/Chart';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import './dashboard.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { data, users } from '../../dummy';
 import staff from '../../assets/images/staff.png';
 import student from '../../assets/images/student.png';
@@ -10,8 +8,9 @@ import team1 from '../../assets/images/team1.png';
 import { printInitials } from '../../utils/initials';
 
 
+
 const Dashboard = () => {
-    const studentIcon = <FontAwesomeIcon icon={faUser} />
+
     return (
         <div className='dashboard-container'>
             <div className="title">
@@ -23,7 +22,7 @@ const Dashboard = () => {
                        <img src={student}alt="" />
                         </div>
                     <div className="row2">
-                        <div className="card-title">Students</div>
+                        <div className="card-title">Users</div>
                         <div className="card-quantity">201</div>
                     </div>
                 </div>
@@ -32,7 +31,7 @@ const Dashboard = () => {
                         <img src={student} alt="" />
                     </div>
                     <div className="row2">
-                        <div className="card-title">Active Students</div>
+                        <div className="card-title">Active Users</div>
                         <div className="card-quantity">{users.length}</div>
                     </div>
                 </div>
@@ -41,7 +40,7 @@ const Dashboard = () => {
                         <img src={staff} alt="" />
                     </div>
                     <div className="row2">
-                        <div className="card-title">Teachers</div>
+                        <div className="card-title">Staffs</div>
                         <div className="card-quantity">11</div>
                     </div>
                 </div>
@@ -56,7 +55,7 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="charts">
-               <div className=" chart-card daily-user">
+               <div className=" chart-card">
                <Chart chartTitle={"Daily User Chart"} yDataKey={'number'}
                     xDataKey={'date'}
                     data={data}

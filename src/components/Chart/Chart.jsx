@@ -1,6 +1,6 @@
 import React from 'react';
 import './chart.css';
-import { ResponsiveContainer, Legend,LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
 
 
 const Chart = ({chartTitle, data, xDataKey, yDataKey, strokeColor}) => {

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header/Header.js";
 import SideBar from "./components/SideBar/SideBar";
@@ -9,17 +9,33 @@ import Login from "./pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AuthService from "./services/authentication_services/auth_service";
 
-function App() {
+
+
+ function App() {
+
+
+  // states
+  const [user, setUser] = useState({});
+
   let authService = new AuthService();
   const isAuthenticated = authService.authenticated;
-  console.log(isAuthenticated);
+  if(isAuthenticated){
+    useEffect( () => {
+       const fetchUser = async () =>{
+        let userData = await authService.loadUserData();
+        setUser(userData.data);
+        console.log(user);
+       };
+       fetchUser();
+    }, []);
+  }
   return isAuthenticated ? (
     <Router>
       <Fragment>
         <div>
-          <Header></Header>
+          <Header user={user}></Header>
           <div className="body-container">
-            <SideBar></SideBar>
+            <SideBar user={user}></SideBar>
             <div className="page-container">
               <Routes>
                 <Route exact path="/" element={<ProtectedRoute />}>

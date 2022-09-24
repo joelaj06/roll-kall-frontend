@@ -10,7 +10,7 @@ class AuthService {
   }
 
 
-
+  token = undefined;
 
   checkTokenOnInit(){
     let token = localStorage.getItem('access_token');
@@ -43,8 +43,19 @@ class AuthService {
     }
   };
 
+  loadUserData = async () => {
+    const user = await this.#client.get(Endpoints.user);
+    if(user){
+      return user;
+    }
+  }
+
   isAuthenticated = () => {
     return this.authenticated; 
+  }
+
+  getToken = () => {
+    return this.token;
   }
 }
 
