@@ -1,8 +1,9 @@
 import axios from "axios";
-import AuthService from "../services/authentication_services/auth_service";
 import NotificationService from "../services/notification_service/notification_service";
 class HTTPClient {
   #BASE_URL = "https://rollkall.onrender.com/api/";
+  // for test
+  #BASE_URL_LOCAL = "http://localhost:3000/api/";
 
   #notificationService = new NotificationService();
 

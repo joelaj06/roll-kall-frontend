@@ -25,11 +25,12 @@ import AuthService from "./services/authentication_services/auth_service";
         let userData = await authService.loadUserData();
         if(!userData) return;
         setUser(userData.data);
-        console.log(user);
        };
        fetchUser();
     }, []);
   }
+
+  getUserData(user);
   return isAuthenticated ? (
     <Router>
       <Fragment>
@@ -40,7 +41,7 @@ import AuthService from "./services/authentication_services/auth_service";
             <div className="page-container">
               <Routes>
                 <Route exact path="/" element={<ProtectedRoute />}>
-                  <Route exact path="/" element={<Dashboard />} />
+                  <Route exact path="/" element={<Dashboard/>} />
                 </Route>
               </Routes>
               <Routes>
@@ -62,4 +63,8 @@ import AuthService from "./services/authentication_services/auth_service";
   );
 }
 
+export function getUserData(user){
+  return user;
+}
 export default App;
+

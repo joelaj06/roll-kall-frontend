@@ -8,11 +8,11 @@ export const data = [
         number: 2
     },
     {
-        date: '22-08-22',
+        date: '23-08-22',
         number: 6
     },
     {
-        date: '23-08-22',
+        date: '22-08-22',
         number: 16
     },
     {

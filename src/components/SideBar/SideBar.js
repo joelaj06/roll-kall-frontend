@@ -68,7 +68,6 @@ const SideBar = ({ user }) => {
   //states
   const [isExpanded, setExpandState] = useState(false);
 
-
   return (
     <div className="side-container">
       <div

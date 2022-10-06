@@ -1,37 +1,125 @@
-import React from 'react';
-import './chart.css';
-import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import React from "react";
+import "./chart.css";
+import {
+  Chart as ChartJs,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+} from "chart.js";
 
+import { Line } from "react-chartjs-2";
+import { convertToHM } from "../../utils/date_formatter";
 
-const Chart = ({chartTitle, data, xDataKey, yDataKey, strokeColor}) => {
- 
-    return (
-        <div className='chart-container'>
-            <div className="chart-title">
-                <h6>{chartTitle}</h6>
-            </div>
-            <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                    width={500}
-                    height={300}
-                    data={data}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
-                >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey={xDataKey} />
-                    <YAxis />
-                    <Tooltip />
-                    {/* <Legend /> */}
-                    <Line type="monotone" dataKey={yDataKey} stroke={strokeColor} activeDot={{ r: 8 }} />
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
-    )
-}
+ChartJs.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip
+  //   Legend
+);
 
-export default Chart
+const Chart = ({
+  chartTitle,
+  labels,
+  dataY,
+  borderColor,
+  isTime = false,
+  showCard = true,
+  showXGrid = true,
+  toolTipLabel,
+}) => {
+  const reverseTheLabels = (labels) => {
+    if (labels) return [...labels].reverse();
+  };
+  const reverseTheData = (dataY) => {
+    if (dataY) return [...dataY].reverse();
+  };
+  const reversedLabels = reverseTheLabels(labels);
+  const reversedDataY = reverseTheData(dataY);
+
+  const options = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: chartTitle,
+        font: {
+          family: "Montserrat",
+          size: 15,
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: function(data) {
+            let y = data.parsed.y || 0;
+            let actualTime;
+            const convertedTime = convertToHM(data.parsed.y);
+            const hour = convertedTime.split(":")[0];
+            if (parseInt(hour) < 12) {
+              actualTime = convertedTime + "AM";
+            } else {
+              actualTime = convertedTime + "PM";
+            }
+            return isTime ? actualTime : y;
+            
+          },
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: function(value, index, ticks) {
+            return isTime ? convertToHM(value) : value;
+          },
+          font: {
+            family: "Montserrat",
+            size: 12,
+          },
+        },
+      },
+      x: {
+        grid: {
+          drawOnChartArea: showXGrid,
+        },
+        ticks: {
+          font: {
+            family: "Montserrat",
+            size: 12,
+          },
+        },
+      },
+    },
+  };
+
+  const data = {
+    labels: reversedLabels,
+    datasets: [
+      {
+        data: reversedDataY,
+        borderColor: borderColor,
+        backgroundColor: "white",
+        pointBorderColor: "grey",
+        pointBorderWidth: 2,
+        borderJointStyle: "round",
+        tension: isTime ? 0 : 0.4,
+        borderWidth: 2,
+      },
+    ],
+  };
+  return (
+    <div className={showCard ? "chart-container" : ""}>
+      <div className="chart">
+        <Line data={data} options={options}></Line>
+      </div>
+    </div>
+  );
+};
+
+export default Chart;

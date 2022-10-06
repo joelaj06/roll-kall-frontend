@@ -1,16 +1,15 @@
 .chart-container{
-  width: 80%;
-  height: 350px;
-  margin: 20px 5px;
   background-color: white;
   box-shadow: var(--box-shadow);
+  border-radius: 4px;
 }
 
-.chart-title{
+.chart{
   padding: 4px;
+  width: 500px;
 }
 
-.chart-title h6{
+.chart h6{
   color: var(--text);
   font-weight: 600;
 }

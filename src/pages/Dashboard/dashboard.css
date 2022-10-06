@@ -1,19 +1,21 @@
-.dashboard-container{
+.dashboard-container {
     display: flex;
     flex-direction: column;
 }
 
-.title{
+.title {
     font-weight: 600;
 }
 
-.card-container{
+.card-container {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
+    /* color: #583e726c; */
 }
 
-.card{
+.card {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -22,14 +24,20 @@
     gap: 20px;
     border: none;
     box-shadow: var(--box-shadow);
+    width: 200px;
 }
 
-.card-icon{
+.card-icon {
     border-radius: 8px;
     padding: 8px;
 }
 
-.student-icon{
+.card-icon img {
+    width: 50px;
+    border-radius: 0;
+}
+
+/* .student-icon{
     background: linear-gradient(1deg, #ece5f4fe 0%, #583e72 96%);
 }
 
@@ -47,48 +55,58 @@
 
 .card-icon img{
     filter: brightness(0) invert(1);
-}
-.card-title{
+} */
+.card-title {
     color: var(--text);
+    font-size: 15px;
     margin-bottom: 0;
-  
+    text-align: right;
+
 }
 
-.card-quantity{
+.card-quantity {
     font-weight: 600;
 }
 
-.row2{
+.row2 {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
 }
 
-.chart-card{
+.charts{
+    margin-block : 40px;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
 }
-.users-present{
+
+.users-present {
     display: flex;
     flex-direction: column;
     box-shadow: var(--box-shadow);
     margin: 15px 0px;
     background-color: white;
+    border-radius: 4px;
 }
 
-.user-profile-container{
+.user-profile-container {
     display: flex;
     flex-direction: row;
     gap: 3px;
     padding: 5px;
 }
 
-.user-present-title{
+.user-present-title {
     color: var(--text);
     padding: 5px;
-    font-weight:600;
+    font-weight: 600;
 }
-.user-profile{
+
+.user-profile {
     color: white;
     /* background-color: #f1471f; */
     background: linear-gradient(52deg, #583e72 20%, #583e72 42%, #f63c25d1 67%);
@@ -100,5 +118,8 @@
     font-weight: 600;
 }
 
-
-
+.avg-checks-container{
+    box-shadow: var(--box-shadow);
+    background-color: white;
+    border-radius: 4px;
+}
