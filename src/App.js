@@ -8,11 +8,12 @@ import Users from "./pages/UsersPage/Users";
 import Login from "./pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AuthService from "./services/authentication_services/auth_service";
+import PushNotification from "./utils/push_notification";
 
-
+ const pushNotification = new PushNotification();
+ let count = 1;
 
  function App() {
-
 
   // states
   const [user, setUser] = useState({});
@@ -25,10 +26,13 @@ import AuthService from "./services/authentication_services/auth_service";
         let userData = await authService.loadUserData();
         if(!userData) return;
         setUser(userData.data);
+        console.log(user)
        };
        fetchUser();
     }, []);
   }
+
+  welcomeNotification(user);
 
   getUserData(user);
   return isAuthenticated ? (
@@ -61,6 +65,13 @@ import AuthService from "./services/authentication_services/auth_service";
       </Routes>
     </Router>
   );
+}
+
+function welcomeNotification(user) {
+   if((!user.first_name || !user.last_name)) return;
+   if(count > 1) return;
+   pushNotification.pushToNotification(`Welcome ${user.first_name} ${user.last_name}, you logged in successfully`);
+   count++;
 }
 
 export function getUserData(user){
