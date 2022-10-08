@@ -199,10 +199,11 @@ const Dashboard = () => {
           {users.map((user) => {
             let userInitials = printInitials(`${user.first_name} ${user.last_name}`);
             return (
-              <Tippy content = {`${user.first_name} ${user.last_name}`} placement = "top">
-              <div key={user._id} className="user-profile">
+              <Tippy content = {`${user.first_name} ${user.last_name}`} placement = "top" >
+             { user.imgUrl ? <img src={`data:image/png;base64,${user.imgUrl}`} alt="user profile pic" />
+             : <div key={user._id} className="user-profile">
                 {userInitials}
-              </div>
+              </div>}
               </Tippy>
             );
           })}

@@ -119,6 +119,12 @@
     cursor: pointer;
 }
 
+.user-profile-container img{
+    width: 50px;
+    border-radius: 50%;
+    background-size: contain;
+    cursor: pointer;
+}
 .avg-checks-container{
     box-shadow: var(--box-shadow);
     background-color: white;
