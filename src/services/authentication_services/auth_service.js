@@ -46,7 +46,7 @@ class AuthService {
   loadUserData = async () => {
     const user = await this.#client.get(Endpoints.user);
     if(user){
-      return user;
+      return user.data;
     }
   }
 

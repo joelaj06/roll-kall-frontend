@@ -13,6 +13,8 @@ import {
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css'; 
 
 
 const dashboardIcon = <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>;
@@ -101,7 +103,7 @@ const SideBar = ({ user }) => {
           <div className="nav-menu">
             {menuItems.map(({ title, icon, id, link }) => {
               return (
-                <Link
+                 <Link
                   to={link}
                   key={id}
                   href=""
@@ -109,9 +111,12 @@ const SideBar = ({ user }) => {
                     isExpanded ? "menu-item"  : "menu-item menu-item-NX"
                   }
                 >
-                  <span className="icon">{icon}</span>
+                  <Tippy placement="right" content = {title}>
+                    <span className="icon">{icon}</span>
+                  </Tippy>
                   <p className="title">{isExpanded && title}</p>
                 </Link>
+              
               );
             })}
           </div>
@@ -120,14 +125,16 @@ const SideBar = ({ user }) => {
           {isExpanded && (
             <div className="nav-details">
               <div className="nav-footer-info">
-                <p className="nav-footer-user-account-name">{`${user.first_name} ${user.last_name}`}</p>
+                <p className="nav-footer-user-account-name">{`${user ? user.first_name : ''} ${user ? user.last_name : ''}`}</p>
                 <p className="nav-footer-user-account-type">
-                  {user.role.name ? user.role.name : ""}
+                  {user ? user.role.name : ""}
                 </p>
               </div>
             </div>
           )}
+          <Tippy placement="right" content = "Logout">
           <span className="logout-icon">{logout}</span>
+          </Tippy>
         </div>
       </div>
     </div>

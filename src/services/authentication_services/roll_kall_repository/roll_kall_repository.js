@@ -20,7 +20,8 @@ class RollKallRepository {
 
   fetchAttendanceDates = async () => {
     const getUser = await this.#authService.loadUserData();
-    const userId = getUser.data.id;
+   if(!getUser) return;
+    const userId = getUser.id;
     let endDate = new Date().toISOString();
     let startDate = DateTime
       .local()

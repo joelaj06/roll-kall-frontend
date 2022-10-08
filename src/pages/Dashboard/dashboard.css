@@ -116,6 +116,7 @@
     height: 50px;
     text-align: center;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .avg-checks-container{

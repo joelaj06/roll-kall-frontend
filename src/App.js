@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useRef } from "react";
 import "./App.css";
 import Header from "./components/Header/Header.js";
 import SideBar from "./components/SideBar/SideBar";
@@ -10,25 +10,29 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AuthService from "./services/authentication_services/auth_service";
 import PushNotification from "./utils/push_notification";
 
- const pushNotification = new PushNotification();
- let count = 1;
+const pushNotification = new PushNotification();
+let count = 1;
 
- function App() {
-
+function App() {
   // states
   const [user, setUser] = useState({});
 
+  //refs
+  const shouldRender = useRef(true);
+
   let authService = new AuthService();
   const isAuthenticated = authService.authenticated;
-  if(isAuthenticated){
-    useEffect( () => {
-       const fetchUser = async () =>{
-        let userData = await authService.loadUserData();
-        if(!userData) return;
-        setUser(userData.data);
-        console.log(user)
-       };
-       fetchUser();
+  if (isAuthenticated) {
+    useEffect(() => {
+      if (shouldRender.current) {
+        shouldRender.current = false;
+        const fetchUser = async () => {
+          let userData = await authService.loadUserData();
+          if (!userData) return;
+          setUser(userData);
+        };
+        fetchUser();
+      }
     }, []);
   }
 
@@ -39,13 +43,13 @@ import PushNotification from "./utils/push_notification";
     <Router>
       <Fragment>
         <div>
-          <Header  user={user}></Header>
+          <Header user={user}></Header>
           <div className="body-container">
             <SideBar user={user}></SideBar>
             <div className="page-container">
               <Routes>
                 <Route exact path="/" element={<ProtectedRoute />}>
-                  <Route exact path="/" element={<Dashboard/>} />
+                  <Route exact path="/" element={<Dashboard />} />
                 </Route>
               </Routes>
               <Routes>
@@ -68,14 +72,17 @@ import PushNotification from "./utils/push_notification";
 }
 
 function welcomeNotification(user) {
-   if((!user.first_name || !user.last_name)) return;
-   if(count > 1) return;
-   pushNotification.pushToNotification(`Welcome ${user.first_name} ${user.last_name}, you logged in successfully`);
-   count++;
+  if (!user) return;
+  if (!user.first_name || !user.last_name) return;
+  if (count > 1) return;
+  pushNotification.pushToNotification(
+    `Welcome ${user.first_name} ${user.last_name}, you logged in successfully`
+  );
+  count++;
 }
 
-export function getUserData(user){
+export function getUserData(user) {
+  if (!user) return;
   return user;
 }
 export default App;
-

@@ -32,6 +32,10 @@ class HTTPClient {
       return response;
     } catch (err) {
       console.log(err);
+      if(err.code === "ERR_NETWORK"){
+        this.#notificationService.showError('Network Error Check Internet Connection');
+        return null;
+      }
       if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {

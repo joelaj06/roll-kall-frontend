@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Chart from "../../components/Chart/Chart";
 import "./dashboard.css";
 import office from "../../assets/images/office.png";
@@ -7,6 +7,7 @@ import team from "../../assets/images/team.png";
 import ontime from "../../assets/images/ontime.png";
 import { printInitials } from "../../utils/initials";
 import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository";
+import Tippy from "@tippyjs/react";
 
 const Dashboard = () => {
   let rollKallRepository = new RollKallRepository();
@@ -20,77 +21,110 @@ const Dashboard = () => {
   const [averageCheckInOfWeek, setAverageCheckInOfTheWeek] = useState({});
   const [averageCheckOutOfTheWeek, setAverageCheckOutOfTheWeek] = useState({}); 
 
-  
+   //refs
+   const shouldRender = useRef(true);
+
   useEffect(() => {
-    const getUsers = async () => {
-      const usersData = await rollKallRepository.fetchUsers();
-      setUsers(usersData);
-    };
-    getUsers();
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getUsers = async () => {
+        const usersData = await rollKallRepository.fetchUsers();
+        if(usersData){
+          setUsers(usersData);
+        }
+      };
+      getUsers();
+
+    }
   }, []);
   
   useEffect(() => {
-    const getTeams = async () => {
-      const teamsData = await rollKallRepository.fetchTeams();
-      setTeams(teamsData);
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getTeams = async () => {
+        const teamsData = await rollKallRepository.fetchTeams();
+        setTeams(teamsData);
+      }
+      getTeams();
+
     }
-    getTeams();
   }, []);
   
   useEffect( () => {
-    const getAttendanceDates = async() => {
-      const attendanceDateData = await rollKallRepository.fetchAttendanceDates(); 
-      setAttendanceDate(attendanceDateData);
-    };
-    getAttendanceDates();
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getAttendanceDates = async() => {
+        const attendanceDateData = await rollKallRepository.fetchAttendanceDates(); 
+        setAttendanceDate(attendanceDateData);
+      };
+      getAttendanceDates();
+    }
   }, []);
   
   useEffect(() => {
-    const getAverageUsersOfTheWeek = async() =>{
-      setLoading(true);
-      const response = await rollKallRepository.fetchActiveUsersOfTheWeek();
-      if(response){
-        setAverageUsersOTheWeek(response);
-        setLoading(false);
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getAverageUsersOfTheWeek = async() =>{
+        setLoading(true);
+        const response = await rollKallRepository.fetchActiveUsersOfTheWeek();
+        if(response){
+          setAverageUsersOTheWeek(response);
+          setLoading(false);
+        }
       }
+      getAverageUsersOfTheWeek();
     }
-    getAverageUsersOfTheWeek();
   }, [])
   
   useEffect(() => {
-    const getLeavesOfTheWeek = async() =>{
-      setLoading(true);
-      const response = await rollKallRepository.fetchLeavesOfTheWeek();
-      if(response){
-        setLeavesOfTheWeek(response);
-        setLoading(false);
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getLeavesOfTheWeek = async() =>{
+        setLoading(true);
+        const response = await rollKallRepository.fetchLeavesOfTheWeek();
+        if(response){
+          setLeavesOfTheWeek(response);
+          setLoading(false);
+        }
       }
+      getLeavesOfTheWeek();
     }
-    getLeavesOfTheWeek();
   }, []);
 
   useEffect(() => {
-    const getAverageCheckInOfTheWeek = async () => {
-      setLoading(true);
-      const response = await rollKallRepository.fetchAverageCheckIn();
-      if(response){
-        setAverageCheckInOfTheWeek(response);
-        setLoading(false);
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current  = false;
+      const getAverageCheckInOfTheWeek = async () => {
+        setLoading(true);
+        const response = await rollKallRepository.fetchAverageCheckIn();
+        if(response){
+          setAverageCheckInOfTheWeek(response);
+          setLoading(false);
+        }
       }
+      getAverageCheckInOfTheWeek();
     }
-    getAverageCheckInOfTheWeek();
   }, []);
 
   useEffect(() => {
-    const getAverageCheckOutOfTheWeek = async () => {
-      setLoading(true);
-      const response = await rollKallRepository.fetchAverageCheckOut();
-      if(response){
-        setAverageCheckOutOfTheWeek(response);
-        setLoading(false);
+    shouldRender.current = true;
+    if(shouldRender.current){
+      shouldRender.current = false;
+      const getAverageCheckOutOfTheWeek = async () => {
+        setLoading(true);
+        const response = await rollKallRepository.fetchAverageCheckOut();
+        if(response){
+          setAverageCheckOutOfTheWeek(response);
+          setLoading(false);
+        }
       }
+      getAverageCheckOutOfTheWeek();
     }
-    getAverageCheckOutOfTheWeek();
   }, []);
   
   
@@ -165,9 +199,11 @@ const Dashboard = () => {
           {users.map((user) => {
             let userInitials = printInitials(`${user.first_name} ${user.last_name}`);
             return (
+              <Tippy content = {`${user.first_name} ${user.last_name}`} placement = "top">
               <div key={user._id} className="user-profile">
                 {userInitials}
               </div>
+              </Tippy>
             );
           })}
         </div>
