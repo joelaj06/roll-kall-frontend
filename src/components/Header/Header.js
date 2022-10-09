@@ -4,7 +4,6 @@ import profilePic from '../../assets/images/img_avatar.png'
 
 
 const Header = ({user}) => {
-    console.log(user)
     return (
         <ul className="nav justify-content-end">
             <div className="email">{ user ? user.email : ''}</div>

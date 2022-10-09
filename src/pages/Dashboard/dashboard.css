@@ -117,6 +117,11 @@
     text-align: center;
     font-weight: 600;
     cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.user-profile:hover{
+    transform: translateY(-10px);
 }
 
 .user-profile-container img{
@@ -124,6 +129,10 @@
     border-radius: 50%;
     background-size: contain;
     cursor: pointer;
+    transition: 0.3s ease;
+}
+.user-profile-container img:hover{
+    transform: translateY(-10px);
 }
 .avg-checks-container{
     box-shadow: var(--box-shadow);

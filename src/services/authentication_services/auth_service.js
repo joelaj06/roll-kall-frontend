@@ -30,7 +30,6 @@ class AuthService {
         if(token){
           window.location.href = "/";
           const decodedToken = jwtDecode(token);
-          console.log(decodedToken.exp);
           if(decodedToken.exp * 1000 < Date.now()){
             this.authenticated = false;
           }else{
@@ -56,6 +55,15 @@ class AuthService {
 
   getToken = () => {
     return this.token;
+  }
+
+  logout = async() => {
+    const token = localStorage.getItem('access_token');
+    if(!token) return;
+    const logout = await this.#client.post(Endpoints.logout, {logout : 'logout'});
+    if(!logout) return;
+    localStorage.removeItem('access_token');
+    window.location.href = "/login";
   }
 }
 

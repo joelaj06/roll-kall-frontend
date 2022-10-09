@@ -49,9 +49,13 @@ class HTTPClient {
     }
   };
 
-  put = async (endpoint, body) => {
+  put = async (endpoint, body, ) => {
     try {
-      let response = await this.#client.put(endpoint, body);
+      let response = await this.#client.put(endpoint, body,{
+        headers : {
+          'Authorization': `${this.token}`
+        }
+      });
       return response;
     } catch (err) {
       if (err.response.status !== 404) {
@@ -69,7 +73,11 @@ class HTTPClient {
   };
   post = async (endpoint, body) => {
     try {
-      let response = await this.#client.post(endpoint, body);
+      let response = await this.#client.post(endpoint, body, {
+        headers : {
+          'Authorization': `${this.token}`
+        }
+      });
       return response;
     } catch (err) {
       if (err.response.status !== 404) {
@@ -84,7 +92,11 @@ class HTTPClient {
   };
   delete = async (endpoint) => {
     try {
-      let response = await this.#client.delete(endpoint);
+      let response = await this.#client.delete(endpoint, {
+        headers : {
+          'Authorization': `${this.token}`
+        }
+      });
       return response;
     } catch (err) {
       if (err.response.status !== 404) {

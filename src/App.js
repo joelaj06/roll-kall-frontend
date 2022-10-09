@@ -65,6 +65,9 @@ function App() {
   ) : (
     <Router>
       <Routes>
+        <Route exact path="/" element={<Login />} />
+      </Routes>
+      <Routes>
         <Route exact path="/login" element={<Login />} />
       </Routes>
     </Router>

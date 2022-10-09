@@ -1,5 +1,6 @@
 class Endpoints {
   static login = "users/login";
+  static logout = "users/logout";
   static user = "users/user";
   static users = "users";
   static teams = "teams";

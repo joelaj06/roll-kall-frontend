@@ -15,6 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css'; 
+import AuthService from "../../services/authentication_services/auth_service";
 
 
 const dashboardIcon = <FontAwesomeIcon icon={faChartLine}></FontAwesomeIcon>;
@@ -22,7 +23,7 @@ const users = <FontAwesomeIcon icon={faUsers}></FontAwesomeIcon>;
 const teams = <FontAwesomeIcon icon={faPeopleGroup}></FontAwesomeIcon>;
 const leaves = <FontAwesomeIcon icon={faShareFromSquare}></FontAwesomeIcon>;
 const settings = <FontAwesomeIcon icon={faGear}></FontAwesomeIcon>;
-const logout = <FontAwesomeIcon icon={faRightFromBracket}></FontAwesomeIcon>;
+const logoutIcon = <FontAwesomeIcon icon={faRightFromBracket}></FontAwesomeIcon>;
 const hamburger = <FontAwesomeIcon icon={faBars} size="1x"></FontAwesomeIcon>;
 const arrowAngleRight = (
   <FontAwesomeIcon icon={faChevronRight} size="1x"></FontAwesomeIcon>
@@ -30,6 +31,8 @@ const arrowAngleRight = (
 const arrowAngleLeft = (
   <FontAwesomeIcon icon={faChevronLeft} size="1x"></FontAwesomeIcon>
 );
+
+ const authService = new AuthService();
 
 const menuItems = [
   {
@@ -64,9 +67,12 @@ const menuItems = [
   },
 ];
 
+const logout = async() => {
+  await authService.logout();
+}
+
 
 const SideBar = ({ user }) => {
-
   //states
   const [isExpanded, setExpandState] = useState(false);
 
@@ -133,7 +139,7 @@ const SideBar = ({ user }) => {
             </div>
           )}
           <Tippy placement="right" content = "Logout">
-          <span className="logout-icon">{logout}</span>
+          <span onClick={logout} className="logout-icon">{logoutIcon}</span>
           </Tippy>
         </div>
       </div>
