@@ -13,6 +13,11 @@ class RollKallRepository {
     if (users) return users.data;
   };
 
+  fetchUsersWithQuery = async (query) => {
+    const users = await this.#client.get(Endpoints.fetchUsersWithQuery(query));
+    if(users) return users.data;
+  }
+
   fetchTeams = async () => {
     const teams = await this.#client.get(Endpoints.teams);
     if (teams) return teams.data;

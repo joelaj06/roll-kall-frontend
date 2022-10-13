@@ -3,6 +3,7 @@ class Endpoints {
   static logout = "users/logout";
   static user = "users/user";
   static users = "users";
+  static fetchUsersWithQuery = (query) => `users?search_filter=true&query=${query}`;
   static teams = "teams";
   static organization = "organization";
   static attendanceDate = (userId,startDate, endDate) =>

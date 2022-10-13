@@ -2,7 +2,8 @@ import React from 'react'
 
 const NoDataFound = () => {
   return (
-    <div>No Data Found</div>
+    <div className='no-data-container'>
+      No Data Found</div>
   )
 }
 

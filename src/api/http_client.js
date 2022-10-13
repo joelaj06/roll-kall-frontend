@@ -13,7 +13,7 @@ class HTTPClient {
 
   
   #client = axios.create({
-    baseURL: this.#BASE_URL,
+    baseURL: this.#BASE_URL_LOCAL,
     headers: {
       "Content-type": "application/json",
       'Authorization': `${this.token}`

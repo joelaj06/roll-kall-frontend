@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import RollKallRepository from '../../services/authentication_services/roll_kall_repository/roll_kall_repository';
 import { Avatar, Box } from '@mui/material';
 import NoDataFound from '../../components/NoDataFound/NoDataFound';
-
+import AppSearchField from '../../components/SearchBar/AppSearchField';
 
 
 const rollKallRepository = new RollKallRepository();
@@ -61,12 +61,17 @@ const Users = () => {
     },
   ]);
 
+  // states
   const [users , setUsers] = useState([]);
+  const [query, setQuery] = useState('');
   const shouldRender = useRef(true);
-
+  
+  const handleChange = (value) => {
+    setQuery(value);
+  }
   useEffect(() => {
-    console.log('calling users...')
    if(shouldRender.current){
+    console.log('calling users')
     shouldRender.current = false;
     const fetchUsers = async() => {
       const users = await rollKallRepository.fetchUsers();
@@ -74,8 +79,15 @@ const Users = () => {
       setUsers(users);
     }
     fetchUsers();
-   }
-  }, [])
+  }
+  }, []);
+
+  const handleBtnClick = async() => {
+    if(!query) return;
+    const users = await rollKallRepository.fetchUsersWithQuery(query);
+    if(!users) return;
+    setUsers(users);
+  }
 
 
   return (
@@ -84,6 +96,11 @@ const Users = () => {
       <div className="title">
         Users
       </div>
+      <AppSearchField onChange={handleChange}
+       placeholder='Search user by name'
+       value={query}
+       onBtnClick = {handleBtnClick}
+       />
       <div className="user-table-container">
         <div className="user-table-card">
         <Box 
@@ -104,6 +121,7 @@ const Users = () => {
       
       <DataGrid
       disableSelectionOnClick={true}
+      
       rows={users}
       columns = {COLUMNS}
        getRowId = {row => row._id}
@@ -114,6 +132,7 @@ const Users = () => {
      }}
      components = {{
       NoRowsOverlay : NoDataFound
+     
      }}
       />
     </Box>

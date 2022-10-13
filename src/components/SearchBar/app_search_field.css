@@ -1,0 +1,25 @@
+.input-field-container{
+    padding-block: 10px;
+}
+.search-field-input{
+    outline: none;
+    padding: 8px;
+    border: 1px solid #c5c2c2;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    background-color: white;
+    /* width: 35%; */
+}
+
+.search-button{
+    padding: 8px;
+    border: 1px solid #583e72;;
+    background-color: #583e72;;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    color: white;
+}
+
+.search-button:active{
+    border: 1px solid white;
+}
