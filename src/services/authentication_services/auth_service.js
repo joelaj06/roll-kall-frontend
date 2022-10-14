@@ -23,7 +23,6 @@ class AuthService {
 
   login = async (body) => {
     const result = await this.#client.post(Endpoints.login, body);
-    console.log(result)
     if(typeof result !== 'undefined'){
         localStorage.setItem('access_token', `Bearer ${result.data.token}`);
         const token = localStorage.getItem('access_token');

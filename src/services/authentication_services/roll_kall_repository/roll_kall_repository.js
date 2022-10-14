@@ -8,8 +8,8 @@ class RollKallRepository {
   #client = new HTTPClient();
   #authService = new AuthService();
 
-  fetchUsers = async () => {
-    const users = await this.#client.get(Endpoints.users);
+  fetchUsers = async (page) => {
+    const users = await this.#client.get(Endpoints.users(page,20));
     if (users) return users.data;
   };
 

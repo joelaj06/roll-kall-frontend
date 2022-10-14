@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 
 const searchIcon = <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>;
 
-function AppSearchField({placeholder,value,onChange, onBtnClick}) {
+function AppSearchField({placeholder,value,onChange, onBtnClick, onKeyDown}) {
 
   const handleChange = (e) => {
     const {value} = e.target;
     onChange(value);
   }
+
 
   return (
     <div className='search-field-container'>
@@ -20,9 +21,11 @@ function AppSearchField({placeholder,value,onChange, onBtnClick}) {
             <input type="text" name="" id="search" className='search-field-input'
             placeholder={placeholder}
             value={value}
-            onChange={handleChange} />
+            onChange={handleChange} 
+            onKeyDown={onKeyDown}/>
             <button className="search-button"
             onClick={onBtnClick}
+            
             >
               {searchIcon}
             </button>

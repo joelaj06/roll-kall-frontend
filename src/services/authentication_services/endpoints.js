@@ -2,7 +2,7 @@ class Endpoints {
   static login = "users/login";
   static logout = "users/logout";
   static user = "users/user";
-  static users = "users";
+  static users = (page, limit) => `users?page=${page}&limit=${limit}`;
   static fetchUsersWithQuery = (query) => `users?search_filter=true&query=${query}`;
   static teams = "teams";
   static organization = "organization";
