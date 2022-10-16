@@ -57,6 +57,26 @@ class RollKallRepository {
     const averageCheckOuts = await this.#client.get(Endpoints.fetchAverageCheckOutsOfTheWeek);
     if(averageCheckOuts) return averageCheckOuts.data;
   }
+
+  fetchUserWithId = async (userId) => {
+    const user = await this.#client.get(Endpoints.userWithId(userId));
+    if(user) return user.data;
+  }
+
+  fetchUserAttendanceDates = async (userId, startDate, endDate) => {
+    const userAttendanceDates = await this.#client.get(Endpoints.userAttendanceDates(userId, startDate, endDate));
+    if(userAttendanceDates) return userAttendanceDates.data;
+  }
+
+  fetchUserLeaves = async (userId, startDate, endDate) => {
+    const userLeaves = await this.#client.get(Endpoints.userLeaves(userId, startDate, endDate));
+    if(userLeaves) return userLeaves.data;
+  }
+
+  deleteUser = async (userId) => {
+    const user = await this.#client.delete(Endpoints.userWithId(userId));
+    if(user) return user.data;
+  }
 }
 
 export default RollKallRepository;

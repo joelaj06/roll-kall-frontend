@@ -9,6 +9,7 @@ import Login from "./pages/Login/Login";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import AuthService from "./services/authentication_services/auth_service";
 import PushNotification from "./utils/push_notification";
+import UserDetailsPage from "./pages/UserDetailPage/UserDetailsPage";
 
 const pushNotification = new PushNotification();
 let count = 1;
@@ -56,6 +57,9 @@ function App() {
                 <Route exact path="/users" element={<ProtectedRoute />}>
                   <Route exact path="/users" element={<Users />} />
                 </Route>
+              </Routes>
+              <Routes>
+                  <Route exact path="/users/:userId" element={<UserDetailsPage />} />
               </Routes>
             </div>
           </div>

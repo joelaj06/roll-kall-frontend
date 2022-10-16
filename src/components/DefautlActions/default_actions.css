@@ -1,0 +1,19 @@
+.icon-btn{
+    border: none;
+    padding: 8px;  
+    border-radius: 5px; 
+    margin: 4px;
+    box-shadow: 1px 1px 3px grey;
+}
+
+.delete{
+    color : red;
+    background-color: white;
+}
+
+.edit{
+    background-color: var(--primary);
+    color : white;
+    padding-block: 5px;
+    padding-inline: 7px;
+}

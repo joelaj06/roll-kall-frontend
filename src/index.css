@@ -7,6 +7,7 @@
   --secondary: #ff8d72;
   --text: grey;
   --box-shadow:  1px 1px 5px #80808066;
+  --box-shadow-light: 0px 0px 2px #80808066;
 }
 
 *{

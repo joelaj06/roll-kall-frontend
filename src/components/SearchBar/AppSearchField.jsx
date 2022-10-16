@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const searchIcon = <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>;
 
 function AppSearchField({placeholder,value,onChange, onBtnClick, onKeyDown}) {
-
+  
   const handleChange = (e) => {
     const {value} = e.target;
     onChange(value);
