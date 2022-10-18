@@ -4,33 +4,77 @@ import "react-toastify/dist/ReactToastify.css";
 toast.configure();
 
 class NotificationService {
-  #toastConfig = {
-    position: "top-right",
-    autoClose: 5000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme : 'colored',
-    
+  
+  // #toastConfig = {
+  //   position: "top-right",
+  //   autoClose: 5000,
+  //   hideProgressBar: true,
+  //   closeOnClick: true,
+  //   pauseOnHover: true,
+  //   draggable: true,
+  //   progress: undefined,
+  //   theme : 'colored',
+  //   toastId: toastId
+  // };
+
+  showSuccess = (message, toastId) => {
+    const newToastConfig = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme : 'colored',
+      toastId: toastId
+    };
+    return toast.success(message, newToastConfig);
   };
 
-  showSuccess = (message) => {
-    console.log(message);
-    return toast.success(message, this.#toastConfig);
+  showError = (message, toastId) => {
+    const newToastConfig = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme : 'colored',
+      toastId: toastId
+    };
+    return toast.error(message, newToastConfig);
   };
 
-  showError = (message) => {
-    return toast.error(message, this.#toastConfig);
+  showInfo = (message, toastId) => {
+    const newToastConfig ={
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme : 'colored',
+      toastId: toastId
+    };
+    toast.info(message, newToastConfig);
   };
 
-  showInfo = (message) => {
-    toast.info(message, this.#toastConfig);
-  };
-
-  showWarning = (message) => {
-    toast.warning(message, this.#toastConfig);
+  showWarning = (message, toastId) => {
+    const newToastConfig = {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme : 'colored',
+      toastId: toastId
+    }
+    toast.warning(message, newToastConfig);
   };
 }
 

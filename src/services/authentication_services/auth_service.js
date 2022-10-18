@@ -58,11 +58,18 @@ class AuthService {
 
   logout = async() => {
     const token = localStorage.getItem('access_token');
-    if(!token) return;
-    const logout = await this.#client.post(Endpoints.logout, {logout : 'logout'});
-    if(!logout) return;
-    localStorage.removeItem('access_token');
-    window.location.href = "/login";
+    if(token){
+      const decodedToken = jwtDecode(token);
+      if(decodedToken.exp * 1000 < Date.now()){
+        localStorage.removeItem('access_token');
+        window.location.href = "/login";
+      }else{
+        const logout = await this.#client.post(Endpoints.logout, {logout : 'logout'});
+        if(!logout) return;
+        localStorage.removeItem('access_token');
+        window.location.href = "/login";
+      }
+    }
   }
 }
 

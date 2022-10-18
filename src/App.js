@@ -15,6 +15,9 @@ const pushNotification = new PushNotification();
 let count = 1;
 
 function App() {
+
+ 
+
   // states
   const [user, setUser] = useState({});
 
@@ -87,6 +90,8 @@ function welcomeNotification(user) {
   );
   count++;
 }
+
+
 
 export function getUserData(user) {
   if (!user) return;

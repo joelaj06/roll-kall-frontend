@@ -5,6 +5,7 @@ class HTTPClient {
   // for test
   #BASE_URL_LOCAL = "http://localhost:3000/api/";
 
+  
   #notificationService = new NotificationService();
 
   constructor(){
@@ -31,9 +32,9 @@ class HTTPClient {
       });
       return response;
     } catch (err) {
-      console.log(err);
+     // console.log(err);
       if(err.code === "ERR_NETWORK"){
-        this.#notificationService.showError('Network Error Check Internet Connection');
+        this.#notificationService.showError('Network Error Check Internet Connection', 'internetError');
         return null;
       }
       if (err.response.status !== 404) {
@@ -41,10 +42,10 @@ class HTTPClient {
         if (message) {
           if(message.toLowerCase().includes('authorized')){
             const newMessage = 'You need to Sign in to continue';
-            this.#notificationService.showError(newMessage);
+            this.#notificationService.showError(newMessage, 'authorizationError');
           }        }
       } else {
-        this.#notificationService.showError("No Server Response");
+        this.#notificationService.showError("No Server Response",'serverError');
       }
     }
   };
@@ -63,11 +64,11 @@ class HTTPClient {
         if (message) {
           if(message.toLowerCase().includes('authorized')){
             const newMessage = 'You need to Sign in to continue';
-            this.#notificationService.showError(newMessage);
+            this.#notificationService.showError(newMessage, 'authorizationError');
           }
         }
       } else {
-        this.#notificationService.showError("No Server Response");
+        this.#notificationService.showError("No Server Response", 'serverError');
       }
     }
   };
@@ -83,10 +84,11 @@ class HTTPClient {
       if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
+          console.log(message);
           this.#notificationService.showError(message);
         }
       } else  {
-        this.#notificationService.showError("No Server Response");
+        this.#notificationService.showError("No Server Response", 'serverError');
       }
     }
   };
