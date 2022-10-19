@@ -61,6 +61,11 @@
 }
 
 
+.address-container .address{
+    text-align: right;
+}
+
+
 
 .block-btn-container .block-btn{
     background-color: #e92424d4;
@@ -83,7 +88,6 @@
 .main-contents-container{
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
     flex: 1;
 }
 
@@ -122,9 +126,50 @@
     display: none;
 }
 
+.main-content-tab-contents{
+    background-color: white;
+    margin-block: 20px;
+    box-shadow: var(--box-shadow-light);
+}
+
 .active-content{
     display: block;
 }
 
+
+.attendance-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.attendance-container .average-field{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.average-field-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.average-field-container .icon img{
+    width: 25px;
+
+}
+.average-field-container .avg-data-col{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.avg-data-col .avg-title{
+    color : var(--text);
+    font-size: 12px;
+}
 
 /*main contents */

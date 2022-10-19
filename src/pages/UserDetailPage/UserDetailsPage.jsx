@@ -10,6 +10,12 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository";
 import { useRef } from "react";
+import checkoutIcon from "../../assets/images/time-out.png";
+import checkInIcon from "../../assets/images/time.png";
+import workHoursIcon from "../../assets/images/clock.png";
+import absentsIcon from "../../assets/images/error.png";
+import {changeToSeconds, convertToHMInString, convertToHM, getFirstDate, getPreviousDateByDays} from '../../utils/date_formatter';
+
 
 const emailIcon = <FontAwesomeIcon icon={faEnvelope}></FontAwesomeIcon>;
 const phoneIcon = <FontAwesomeIcon icon={faPhone}></FontAwesomeIcon>;
@@ -20,12 +26,22 @@ const avatarSize = 80;
 const rollKallRepository = new RollKallRepository();
 
 const UserDetailsPage = () => {
+
   const params = useParams();
+
+  let now = new Date();
+  const date = new Date('2022-09-30');
+  const startDate = getFirstDate(now);
+
+  const endDate = getPreviousDateByDays(now,1);
+
   
   //states  
   const [tabIndex, setTabIndex] = useState(1);
   const [user, setUser] = useState({});
+  const [averageChecks, setAverageChecks] = useState({});
   const shouldRender = useRef(true);
+  const [leaves, setLeaves] = useState([]);
 
   useEffect(() => {
      if(shouldRender.current){
@@ -38,10 +54,47 @@ const UserDetailsPage = () => {
        fetchUser();
      }
   },[])
-  
+
+  useEffect(() => {
+    shouldRender.current = true;
+    if(shouldRender.current){
+     shouldRender.current = false;
+     const getUserAttendanceDates = async() => {
+       const userDatesData = await rollKallRepository.fetchUserAttendanceDates(params.userId,
+       startDate,endDate );
+       if(!userDatesData) return;
+      let newData = getDatesInSeconds(userDatesData);
+      const avgData = {};
+      const avgCheckIn = newData.reduce((total, data) => total + data.checkIn,0)/newData.length;
+      const avgCheckOut = newData.reduce((total, data) => total + data.checkOut,0)/newData.length;
+      const avgWorkingHrs = avgCheckOut - avgCheckIn;
+      avgData.avgCheckIn = avgCheckIn;
+      avgData.avgCheckout = avgCheckOut;
+      avgData.avgWorkingHrs = avgWorkingHrs;
+      setAverageChecks(avgData);
+      }
+      getUserAttendanceDates();
+    }
+ },[endDate])
+
+ useEffect(()=> {
+  shouldRender.current = true;
+  if(shouldRender.current){
+    shouldRender.current = false;
+    const fetchUserLeaves = async () => {
+    const leaves = await rollKallRepository.fetchUserLeaves(params.userId,
+      startDate, endDate);
+      if(!leaves) return;
+      setLeaves(leaves);
+  }
+  fetchUserLeaves();}
+ },[endDate])
+
   const onTabClick = (index) => {
     setTabIndex(index)
   }
+
+  
 
   return (
     <div className="user-detail-main-container">
@@ -100,7 +153,30 @@ const UserDetailsPage = () => {
 
           <div className="main-content-tab-contents">
             <div className={tabIndex === 1 ? "active-content":  "tab-content-1 tab-content"}>
-              Attendance
+              <div className="attendance-container">
+                  <div className="average-field">
+                    <AverageFields icon={checkInIcon}
+                    title={'Avg clock in'}
+                    content={averageChecks.avgCheckIn ?convertToHM(averageChecks.avgCheckIn) :
+                    '00:00'}
+                    /> 
+                    <AverageFields icon={checkoutIcon}
+                    title={'Avg clock out'}
+                    content={averageChecks.avgCheckout ?convertToHM(averageChecks.avgCheckout) :
+                      '00:00'}
+                    />
+                    <AverageFields icon={workHoursIcon}
+                    title={'Avg Working Hrs'}
+                    content={averageChecks.avgWorkingHrs ?convertToHMInString(averageChecks.avgWorkingHrs) :
+                      '00h 00m'}
+                    />
+                    <AverageFields icon={absentsIcon}
+                    title={'Absents/Leave'}
+                    content={leaves ? leaves.length : '00'}
+                    />
+                  </div>
+                  <div className="dates-table">Table</div>
+              </div>
             </div>
             <div className={tabIndex === 2 ? "active-content":  "tab-content-2 tab-content"}>
               Leave Quota
@@ -116,3 +192,27 @@ const UserDetailsPage = () => {
 };
 
 export default UserDetailsPage;
+
+const getDatesInSeconds = (data) => {
+  const dates = data.map(({check_in, check_out})=> {
+    let checkIn = changeToSeconds(check_in);
+    let checkOut = changeToSeconds(check_out);
+    return {checkIn, checkOut};
+  });
+  return dates;
+}
+
+const AverageFields = ({icon, content, title}) => {
+  return (
+    <div className="average-field-container">
+      <div className="icon">
+        <img src= {icon} alt="" /></div>
+      <div className="avg-data-col">
+        <div className="avg-content bold">{content}</div>
+        <div className="avg-title ">{title}</div>
+      </div>
+    </div>
+  )
+}
+
+
