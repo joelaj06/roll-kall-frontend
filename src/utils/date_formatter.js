@@ -17,6 +17,15 @@ function convertDateToYYMMDD(date){
   return date.toISOString().split('T')[0];
 }
 
+function lastDayOfMonth(Year, Month) {
+  return new Date((new Date(Year, Month, 1)) - 1);
+}
+
+function getLastDayOfMonth(date){
+  return new Date(date.getFullYear(), 
+  date.getMonth() + 1, 0, 23, 59, 59)
+}
+
 function getPreviousDateByDays(date, days) {
   var result = new Date(date);
   result.setDate(result.getDate() - days);
@@ -65,6 +74,27 @@ function convertToHMInString(value){
   return hours+'h '+minutes+'m';
 }
 
+function sqlTimestampToJs(date) {
+  var t = date.split(/[- :]/);
+  var newDate = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+  return newDate;
+}
+
+const convertDateToString = (dateTime) => {
+  const date = dateTime.split('T')[0];
+  const time = dateTime.split('T')[1].split('.')[0];
+  const dateA = `${date} ${time}`
+  const dateToString = sqlTimestampToJs(dateA).toDateString();
+  return dateToString;
+
+}
+
+const getMonthYearInString = (date) => {
+  const month = date.toDateString().split(' ')[1];
+  const year = date.toDateString().split(' ')[3];
+  return `${month} ${year}`;
+}
+
 
   export {
   addDays,
@@ -75,5 +105,9 @@ function convertToHMInString(value){
   convertToHM,
   getFirstDate,
   convertDateToYYMMDD,
-  convertToHMInString
+  convertToHMInString,
+  convertDateToString,
+  getLastDayOfMonth,
+  lastDayOfMonth,
+  getMonthYearInString
 };

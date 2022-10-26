@@ -1,0 +1,25 @@
+.date-field{
+    display: flex;
+    flex-direction: row;
+    padding-block : 20px;
+    padding-bottom: 8px;
+    gap: 4px;
+}
+
+.date-display-container{
+    flex: 20;
+}
+
+.date-display-container .date-text{
+    color : var(--primary);
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+.example-custom-input{
+    border: none;
+    border-radius: 3px;
+    padding-inline: 13px;
+    padding-block: 5px;
+    color: var(--primary)
+}

@@ -13,6 +13,26 @@
 }
 /* global */
 
+
+/* library styles */
+.css-w4z10b-MuiStack-root{
+    height: 45px;
+}
+.css-1jbbcbn-MuiDataGrid-columnHeaderTitle{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+/* library styles */
+.react-datepicker-wrapper{
+    flex: 1 !important;
+}
+
+/* library styles */
+
 /*profile container */
 .user-detail-container{
     display: flex;
@@ -122,6 +142,7 @@
     background-color: var(--primaryLight) !important;
 }
 
+
 .tab-content{
     display: none;
 }
@@ -140,13 +161,14 @@
 .attendance-container{
     display: flex;
     flex-direction: column;
+    padding-inline: 15px;
 }
 
 .attendance-container .average-field{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 5px;
+    padding: 10px;
 }
 
 .average-field-container{
@@ -154,6 +176,7 @@
     flex-direction: row;
     align-items: center;
     gap: 10px;
+    padding-block: 20px;
 }
 
 .average-field-container .icon img{
@@ -171,5 +194,16 @@
     color : var(--text);
     font-size: 12px;
 }
+
+.clock-out-container{
+    display: flex;
+    gap: 4px;
+}
+
+.clock-out-container .icon{
+    color : var(--primary);
+}
+
+
 
 /*main contents */

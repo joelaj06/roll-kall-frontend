@@ -3,3 +3,18 @@
     justify-content: center;
     align-items: center;
 }
+.no-data-container .stack{
+   
+
+
+}
+.no-data-container img{
+    width: 100px;
+    margin-top: 30%;
+    
+}
+
+.no-data-container .no-result-text{
+    font-size: 25px;
+
+}

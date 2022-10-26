@@ -1,0 +1,79 @@
+.user-info-container{
+    display: flex;
+    flex-direction: row;
+    padding: 15px;
+}
+
+.user-info-container .user-info-row-1{
+    display: flex;
+    flex-direction: column;
+}
+.user-info-row-1 .user-edit-details-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.user-profile-img{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-edit-details-container form{
+    width: 100%;
+}
+.user-edit-details-container .input-wrapper{
+   border-bottom: 2px solid grey;
+   padding-block: 6px;
+   border-radius: 2px;
+   transition: 0.3s ease;
+   font-size: 13px;
+   /* width: 220px; */
+   display: flex;
+   flex-direction: column;
+}
+
+
+.user-edit-details-container .input-wrapper:focus-within{
+    border-bottom: 2px solid var(--primary);
+    font-size: 15px;
+    
+
+}
+
+.user-edit-details-container .input-wrapper label{
+    color : var(--secondary);
+    font-size: 12px;
+}
+.user-edit-details-container .input-wrapper input{
+    border: none;
+    outline : none;
+
+}
+
+.user-edit-details-container .update-user-btn{
+    border: none;
+    padding: 7px;
+    margin-top: 20px;
+    border-radius: 4px;
+    color: white;
+    background-color: green;
+    font-weight: 600;
+    transition : 0.3s ease;
+}
+
+.user-edit-details-container .update-user-btn-disabled{
+    border: none;
+    padding: 7px;
+    margin-top: 20px;
+    border-radius: 4px;
+    color: rgb(215, 215, 215);
+    background-color: #7d7d7d;
+    font-weight: 600;
+    
+}
+.user-edit-details-container .update-user-btn:active{
+    box-shadow: inset 0 0 1px 3px white;
+}

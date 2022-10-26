@@ -1,0 +1,49 @@
+
+.attendance-container{
+    display: flex;
+    flex-direction: column;
+    padding-inline: 15px;
+}
+
+.attendance-container .average-field{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.average-field-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-block: 20px;
+}
+
+.average-field-container .icon img{
+    width: 25px;
+
+}
+.average-field-container .avg-data-col{
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.avg-data-col .avg-title{
+    color : var(--text);
+    font-size: 12px;
+}
+
+.clock-out-container{
+    display: flex;
+    gap: 4px;
+}
+
+.clock-out-container .icon{
+    color : var(--primary);
+}
+
+
+

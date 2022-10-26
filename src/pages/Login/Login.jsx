@@ -82,8 +82,6 @@ const Login = () => {
       const data = await authService.login(formData);
       if (typeof data === "undefined") {
         setLoading(false);
-        console.log(isLoading);
-        console.log(data);
       }
     } else {
       return;

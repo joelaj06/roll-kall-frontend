@@ -68,13 +68,18 @@ class RollKallRepository {
     if(userAttendanceDates) return userAttendanceDates.data;
   }
 
-  fetchUserLeaves = async (userId, startDate, endDate) => {
-    const userLeaves = await this.#client.get(Endpoints.userLeaves(userId, startDate, endDate));
+  fetchUserLeaves = async (userId, startDate, endDate, category) => {
+    const userLeaves = await this.#client.get(Endpoints.userLeaves(userId, startDate, endDate,category));
     if(userLeaves) return userLeaves.data;
   }
 
   deleteUser = async (userId) => {
     const user = await this.#client.delete(Endpoints.userWithId(userId));
+    if(user) return user.data;
+  }
+
+  updateUser = async (userId, userData) => {
+    const user = await this.#client.clientPut(Endpoints.updateUser(userId), userData);
     if(user) return user.data;
   }
 }

@@ -32,7 +32,7 @@
     height: 500px;
 }
 
-form{
+.login-container form{
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -43,11 +43,11 @@ form{
     border-radius: 9px;
 }
 
-form h3{
+.login-container form h3{
     color: white;
 }
 
-form input{
+.login-container form input{
     padding: 15px 10px;
     width: 450px;
     font-size: 1.6rem;
@@ -57,12 +57,12 @@ form input{
     color: white;
 }
 
-form input[type="password"]{
+.login-container form input[type="password"]{
     font-family: Verdana;
   /* font-size: 16px; */
 }
 
-form .password{
+.login-container form .password{
     display: flex;
     flex-direction: row;
     align-items: center;

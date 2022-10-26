@@ -1,0 +1,18 @@
+
+.leave-date-field{
+    padding-inline : 6px;
+}
+.status{
+    padding-inline: 4px;
+    border-radius: 4px;
+}
+
+.pending{
+    background-color: #ed9900;
+    color: white;
+}
+
+.approved{
+    background-color: #198754;
+    color: white;
+}

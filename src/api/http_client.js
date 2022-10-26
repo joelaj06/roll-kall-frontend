@@ -50,7 +50,7 @@ class HTTPClient {
     }
   };
 
-  put = async (endpoint, body, ) => {
+  clientPut = async (endpoint, body) => {
     try {
       let response = await this.#client.put(endpoint, body,{
         headers : {
@@ -59,6 +59,11 @@ class HTTPClient {
       });
       return response;
     } catch (err) {
+      console.log(err);
+      if(err.code === "ERR_NETWORK"){
+        this.#notificationService.showError('Network Error Check Internet Connection', 'internetError');
+        return null;
+      }
       if (err.response.status !== 404) {
         const message =  err.response.data.message;
         if (message) {

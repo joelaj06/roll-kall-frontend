@@ -1,0 +1,35 @@
+ .app-button{
+    border: none;
+    padding: 7px;
+    margin-top: 20px;
+    border-radius: 4px;
+    color: white;
+    /* background-color: green; */
+    font-weight: 600;
+    transition : 0.3s ease;
+    box-shadow: 1px 1px 3px grey;
+}
+
+.bg-green{
+    background-color: green !important;
+}
+
+.bg-primary{
+    background-color: var(--primary) !important;
+}
+
+
+.app-button-disabled{
+    border: none;
+    padding: 7px;
+    margin-top: 20px;
+    border-radius: 4px;
+    color: rgb(215, 215, 215);
+    background-color: #7d7d7d;
+    font-weight: 600;
+    
+    
+}
+.app-button:active{
+    box-shadow: inset 0 0 1px 3px white;
+}

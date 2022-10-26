@@ -6,16 +6,18 @@ import { Avatar, Box } from "@mui/material";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
 import AppSearchField from "../../components/SearchBar/AppSearchField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Tippy from "@tippyjs/react";
 import Swal from 'sweetalert2';
 import '../../components/DefautlActions/default_actions.css';
+import AppButton from "../../components/AppButton/AppButton";
+import './users.css';
 
 
 const rollKallRepository = new RollKallRepository();
 
-const editIcon = <FontAwesomeIcon icon={faPenToSquare}></FontAwesomeIcon>;
+const editIcon = <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>;
 const deleteIcon = <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>;
 
 function getFullName(params) {
@@ -78,13 +80,11 @@ const Users = () => {
      // type: "actions",
       renderCell: (params) => (
         <Box>
-          <Tippy content="Edit user" placement="left">
+          <Tippy content="Preview" placement="left">
             <Link to={`/users/${params.row._id}`}>
               <button
                 className="icon-btn edit"
-                onClick={(event) => {
-                  handleUserEdit(event, params);
-                }}
+                onClick={(event) => {}}
               >
                 {editIcon}
               </button>
@@ -103,7 +103,7 @@ const Users = () => {
   // states
   const [users, setUsers] = useState([]);
   const [query, setQuery] = useState("");
-  const [pageSize, setPageSize] = useState(5);
+  const [pageSize, setPageSize] = useState(10);
   const [deletedUserId, setDeletedUserId] = useState(null);
   const shouldRender = useRef(true);
 
@@ -196,20 +196,26 @@ const Users = () => {
 
   };
 
-  const handleUserEdit = (event, params) => {
-    
+  const handleAddUser = () => {
+    console.log('Btn clicked')
   };
 
   return (
     <div className="users-container">
       <div className="title">Users</div>
+      <div className="controls-container">
       <AppSearchField
         onChange={handleChange}
-        placeholder="Search user by name"
+        placeholder={"Search user by name and email"}
         value={query}
         onBtnClick={handleBtnClick}
         onKeyDown={handleKeyDown}
       />
+       <AppButton text={"+ Add User"}
+       bgColor= {'bg-green'}
+       onBtnClick = {handleAddUser}
+       />
+      </div>
       <div className="user-table-container">
         <div className="user-table-card">
           <Box
@@ -232,7 +238,7 @@ const Users = () => {
               getRowId={(row) => row._id}
               pageSize={pageSize}
               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-              rowsPerPageOptions={[5, 10, 20]}
+              rowsPerPageOptions={[10, 20, 30]}
               sx={{
                 "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
                   outline: "none !important",
