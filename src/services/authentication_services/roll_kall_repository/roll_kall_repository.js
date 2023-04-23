@@ -82,6 +82,16 @@ class RollKallRepository {
     const user = await this.#client.clientPut(Endpoints.updateUser(userId), userData);
     if(user) return user.data;
   }
+
+  fetchRoles = async () => {
+    const roles = await this.#client.get(Endpoints.roles);
+    if(roles) return roles.data;
+  }
+
+  addUser = async (userData) => {
+    const user = await this.#client.post(Endpoints.addUser, userData);
+    if(user) return user.data;
+  }
 }
 
 export default RollKallRepository;

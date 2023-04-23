@@ -1,4 +1,3 @@
-import React from "react";
 import "./login.css";
 import {
   faUser,
@@ -7,16 +6,16 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import React,{ useState } from "react";
 import NotificationService from "../../services/notification_service/notification_service";
 import AuthService from "../../services/authentication_services/auth_service";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 
-const Login = () => {
-  const user = <FontAwesomeIcon icon={faUser}></FontAwesomeIcon>;
-  const lock = <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>;
-  const eye = <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>;
-  const eyeSlash = <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>;
+const {user,lock} = [<FontAwesomeIcon icon={faUser}></FontAwesomeIcon>, <FontAwesomeIcon icon={faLock}></FontAwesomeIcon>];
+const eye = <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>;
+const eyeSlash = <FontAwesomeIcon icon={faEyeSlash}></FontAwesomeIcon>;
+
+const Login =  () => {
 
   const notificationService = new NotificationService();
   const authService = new AuthService();
@@ -41,7 +40,7 @@ const Login = () => {
   };
 
   const onEmailInputChange = (event) => {
-   setFormData({...formData, email : event.target.value});
+   setFormData({...formData, email: event.target.value});
   };
 
   const onPasswordInputChange = (event) => {
@@ -89,7 +88,8 @@ const Login = () => {
   };
 
   return (
-    <div className="main-container">
+    <>
+     <div className="main-container">
       <div className="background-dark-overlay">
         <div className="login-container">
           <form onSubmit={onFormSubmit}>
@@ -135,6 +135,8 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
+   
   );
 };
 

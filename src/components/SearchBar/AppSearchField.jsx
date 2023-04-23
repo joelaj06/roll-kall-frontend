@@ -20,6 +20,7 @@ function AppSearchField({placeholder,value,onChange, onBtnClick, onKeyDown}) {
         value = {value}>
             <input type="text" name="" id="search" className='search-field-input'
             placeholder={placeholder}
+            autoComplete="off"
             value={value}
             onChange={handleChange} 
             onKeyDown={onKeyDown}/>

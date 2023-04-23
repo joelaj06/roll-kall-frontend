@@ -1,26 +1,25 @@
-import React from "react";
-import { useMemo, useState, useEffect, useRef } from "react";
+import { faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Avatar, Box, Modal } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository";
-import { Avatar, Box } from "@mui/material";
+import Tippy from "@tippyjs/react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import AddUser from "../../components/AddUser/AddUser";
+import AppButton from "../../components/AppButton/AppButton";
+import "../../components/DefautlActions/default_actions.css";
 import NoDataFound from "../../components/NoDataFound/NoDataFound";
 import AppSearchField from "../../components/SearchBar/AppSearchField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faEye } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
-import Tippy from "@tippyjs/react";
-import Swal from 'sweetalert2';
-import '../../components/DefautlActions/default_actions.css';
-import AppButton from "../../components/AppButton/AppButton";
-import './users.css';
-
+import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository";
+import "./users.css";
 
 const rollKallRepository = new RollKallRepository();
 
 const editIcon = <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>;
 const deleteIcon = <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>;
 
-function getFullName(params) {
+const getFullName = (params) => {
   return `${params.row.first_name || ""} ${params.row.last_name || ""}`;
 }
 
@@ -36,6 +35,15 @@ function getUserProfileImg(params) {
 }
 
 const Users = () => {
+  // states
+  const [users, setUsers] = useState([]);
+  const [query, setQuery] = useState("");
+  const [pageSize, setPageSize] = useState(10);
+  const [deletedUserId, setDeletedUserId] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const shouldRender = useRef(true);
+
   const COLUMNS = useMemo(() => [
     {
       headerName: "",
@@ -77,21 +85,25 @@ const Users = () => {
     {
       headerName: "Actions",
       field: "actions",
-     // type: "actions",
+      // type: "actions",
       renderCell: (params) => (
         <Box>
           <Tippy content="Preview" placement="left">
             <Link to={`/users/${params.row._id}`}>
-              <button
-                className="icon-btn edit"
-                onClick={(event) => {}}
-              >
+              <button className="icon-btn edit" onClick={(event) => {}}>
                 {editIcon}
               </button>
             </Link>
           </Tippy>
           <Tippy content="Delete user" placement="left">
-            <button onClick={(event) => {handleUserDelete(event, params)}} className="icon-btn delete">{deleteIcon}</button>
+            <button
+              onClick={(event) => {
+                handleUserDelete(event, params);
+              }}
+              className="icon-btn delete"
+            >
+              {deleteIcon}
+            </button>
           </Tippy>
         </Box>
       ),
@@ -100,26 +112,19 @@ const Users = () => {
     },
   ]);
 
-  // states
-  const [users, setUsers] = useState([]);
-  const [query, setQuery] = useState("");
-  const [pageSize, setPageSize] = useState(10);
-  const [deletedUserId, setDeletedUserId] = useState(null);
-  const shouldRender = useRef(true);
-
   const handleChange = (value) => {
     setQuery(value);
   };
+  
   useEffect(() => {
-    if(deletedUserId){
+    if (deletedUserId || refresh) {
       const fetchUsers = async () => {
         const users = await rollKallRepository.fetchUsers(1);
         if (!users) return;
         setUsers(users);
-    }
-    fetchUsers();
-  }else{
-
+      };
+      fetchUsers();
+    } else {
       if (shouldRender.current) {
         shouldRender.current = false;
         const fetchUsers = async () => {
@@ -130,8 +135,7 @@ const Users = () => {
         fetchUsers();
       }
     }
-    
-  }, [deletedUserId]);
+  }, [deletedUserId, refresh]);
 
   const handleBtnClick = async () => {
     // if(!query) return;
@@ -148,74 +152,87 @@ const Users = () => {
     }
   };
 
-  const handleUserDelete = async(event, params) => {
+  const handleUserDelete = async (event, params) => {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success mr-1',
-        cancelButton: 'btn btn-danger ml-1'
+        confirmButton: "btn btn-success mr-1",
+        cancelButton: "btn btn-danger ml-1",
       },
-      buttonsStyling: false
-    })
-    
-    swalWithBootstrapButtons.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const deletedUser = await rollKallRepository.deleteUser(params.row._id);
-        if(deletedUser){
-          setDeletedUserId(deletedUser);
-          swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'User deleted Successfully.',
-            'success'
-          );
-        }else{
-          swalWithBootstrapButtons.fire(
-            'Failed',
-            'An error occurred',
-            'error'
-          )
-        }
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'User deletion canceled:)',
-          'error'
-        )
-      }
-    })
-    
+      buttonsStyling: false,
+    });
 
+    swalWithBootstrapButtons
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const deletedUser = await rollKallRepository.deleteUser(
+            params.row._id
+          );
+          if (deletedUser) {
+            setDeletedUserId(deletedUser);
+            swalWithBootstrapButtons.fire(
+              "Deleted!",
+              "User deleted Successfully.",
+              "success"
+            );
+          } else {
+            swalWithBootstrapButtons.fire(
+              "Failed",
+              "An error occurred",
+              "error"
+            );
+          }
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire(
+            "Cancelled",
+            "User deletion canceled:)",
+            "error"
+          );
+        }
+      });
   };
 
   const handleAddUser = () => {
-    console.log('Btn clicked')
+    setOpenModal(true);
   };
 
   return (
     <div className="users-container">
       <div className="title">Users</div>
       <div className="controls-container">
-      <AppSearchField
-        onChange={handleChange}
-        placeholder={"Search user by name and email"}
-        value={query}
-        onBtnClick={handleBtnClick}
-        onKeyDown={handleKeyDown}
-      />
-       <AppButton text={"+ Add User"}
-       bgColor= {'bg-green'}
-       onBtnClick = {handleAddUser}
-       />
+        <AppSearchField
+          onChange={handleChange}
+          placeholder={"Search user by name and email"}
+          value={query}
+          onBtnClick={handleBtnClick}
+          onKeyDown={handleKeyDown}
+        />
+        <AppButton
+          text={"+ Add User"}
+          bgColor={"bg-green"}
+          onBtnClick={handleAddUser}
+        />
       </div>
+      <Modal
+        open={openModal}
+        onClose={setOpenModal}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div>
+          <AddUser closeModal={setOpenModal}
+          refresh = {setRefresh}
+           />
+        </div>
+      </Modal>
       <div className="user-table-container">
         <div className="user-table-card">
           <Box

@@ -13,9 +13,17 @@
 .bg-green{
     background-color: green !important;
 }
+.bg-red{
+    background-color: #b30000 !important;
+}
 
 .bg-primary{
     background-color: var(--primary) !important;
+}
+
+
+.ss{
+    padding-inline: 15px;
 }
 
 

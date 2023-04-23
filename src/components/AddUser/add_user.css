@@ -1,0 +1,10 @@
+.add-user-container-head{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.submit-btn{
+    text-align: right;
+}
