@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Avatar, Box, Modal } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Tippy from "@tippyjs/react";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import AddUser from "../../components/AddUser/AddUser";
@@ -20,8 +20,9 @@ const editIcon = <FontAwesomeIcon icon={faEye}></FontAwesomeIcon>;
 const deleteIcon = <FontAwesomeIcon icon={faTrash}></FontAwesomeIcon>;
 
 const getFullName = (params) => {
+  console.log(params);
   return `${params.row.first_name || ""} ${params.row.last_name || ""}`;
-}
+};
 
 function getUserProfileImg(params) {
   return params.row.imgUrl ? (
@@ -78,7 +79,8 @@ const Users = () => {
     {
       headerName: "Role",
       field: "role",
-      valueGetter: (params) => params.row.role.name,
+      valueGetter: (params) =>
+        params.row.role ? params.row.role.name : "No Role",
       flex: 1,
       headerClassName: "super-app-theme--header",
     },
@@ -90,7 +92,7 @@ const Users = () => {
         <Box>
           <Tippy content="Preview" placement="left">
             <Link to={`/users/${params.row._id}`}>
-              <button className="icon-btn edit" onClick={(event) => {}}>
+              <button className="icon-btn edit" onClick={() => {}}>
                 {editIcon}
               </button>
             </Link>
@@ -115,7 +117,7 @@ const Users = () => {
   const handleChange = (value) => {
     setQuery(value);
   };
-  
+
   useEffect(() => {
     if (deletedUserId || refresh) {
       const fetchUsers = async () => {
@@ -153,51 +155,35 @@ const Users = () => {
   };
 
   const handleUserDelete = async (event, params) => {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success mr-1",
-        cancelButton: "btn btn-danger ml-1",
-      },
-      buttonsStyling: false,
-    });
+    // const Swal = Swal.mixin({
+    //   customClass: {
+    //     confirmButton: "btn btn-success mr-1",
+    //     cancelButton: "btn btn-danger ml-1",
+    //   },
+    //   buttonsStyling: false,
+    // });
 
-    swalWithBootstrapButtons
-      .fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Yes, delete it!",
-        cancelButtonText: "No, cancel!",
-        reverseButtons: true,
-      })
-      .then(async (result) => {
-        if (result.isConfirmed) {
-          const deletedUser = await rollKallRepository.deleteUser(
-            params.row._id
-          );
-          if (deletedUser) {
-            setDeletedUserId(deletedUser);
-            swalWithBootstrapButtons.fire(
-              "Deleted!",
-              "User deleted Successfully.",
-              "success"
-            );
-          } else {
-            swalWithBootstrapButtons.fire(
-              "Failed",
-              "An error occurred",
-              "error"
-            );
-          }
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire(
-            "Cancelled",
-            "User deletion canceled:)",
-            "error"
-          );
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const deletedUser = await rollKallRepository.deleteUser(params.row._id);
+        if (deletedUser) {
+          setDeletedUserId(deletedUser);
+          Swal.fire("Deleted!", "User deleted Successfully.", "success");
+        } else {
+          Swal.fire("Failed", "An error occurred", "error");
         }
-      });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "User deletion canceled:)", "error");
+      }
+    });
   };
 
   const handleAddUser = () => {
@@ -228,9 +214,7 @@ const Users = () => {
         aria-describedby="modal-modal-description"
       >
         <div>
-          <AddUser closeModal={setOpenModal}
-          refresh = {setRefresh}
-           />
+          <AddUser closeModal={setOpenModal} refresh={setRefresh} />
         </div>
       </Modal>
       <div className="user-table-container">
@@ -261,7 +245,7 @@ const Users = () => {
                   outline: "none !important",
                 },
               }}
-              components={{
+              slots={{
                 NoRowsOverlay: NoDataFound,
               }}
             />

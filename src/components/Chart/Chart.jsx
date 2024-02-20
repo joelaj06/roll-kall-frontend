@@ -1,4 +1,3 @@
-import React from "react";
 import "./chart.css";
 import {
   Chart as ChartJs,
@@ -9,6 +8,7 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
+import PropTypes from "prop-types";
 
 import { Line } from "react-chartjs-2";
 import { convertToHM } from "../../utils/date_formatter";
@@ -55,7 +55,7 @@ const Chart = ({
       },
       tooltip: {
         callbacks: {
-          label: function(data) {
+          label: function (data) {
             let y = data.parsed.y || 0;
             let actualTime;
             const convertedTime = convertToHM(data.parsed.y);
@@ -66,7 +66,6 @@ const Chart = ({
               actualTime = convertedTime + "PM";
             }
             return isTime ? actualTime : y;
-            
           },
         },
       },
@@ -75,7 +74,7 @@ const Chart = ({
       y: {
         beginAtZero: true,
         ticks: {
-          callback: function(value, index, ticks) {
+          callback: function (value) {
             return isTime ? convertToHM(value) : value;
           },
           font: {
@@ -120,6 +119,17 @@ const Chart = ({
       </div>
     </div>
   );
+};
+
+Chart.propsTypes = {
+  chartTitle: PropTypes.string,
+  labels: PropTypes.array,
+  dataY: PropTypes.array,
+  borderColor: PropTypes.string,
+  isTime: PropTypes.bool,
+  showCard: PropTypes.bool,
+  showXGrid: PropTypes.bool,
+  toolTipLabel: PropTypes.string,
 };
 
 export default Chart;

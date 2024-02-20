@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./user_info.css";
 import { Avatar } from "@mui/material";
-import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository"
+import RollKallRepository from "../../services/authentication_services/roll_kall_repository/roll_kall_repository";
 import { defaultImageUrl } from "../../utils/defaultImage";
 import NotificationService from "../../services/notification_service/notification_service";
 
@@ -13,10 +13,9 @@ const notificationService = new NotificationService();
 const updateUserInfo = async (userId, userData) => {
   const user = await rollKallRepository.updateUser(userId, userData);
   return user;
-}
+};
 
 const UserInfo = ({ user }) => {
-
   // states
   const [formData, setFormData] = useState({
     job_title: user.job_title ? user.job_title : "",
@@ -28,7 +27,7 @@ const UserInfo = ({ user }) => {
     phone: user.phone ? user.phone : "",
   });
 
-  const [imgUrl, setImgUrl]= useState(user.imgUrl);
+  const [imgUrl, setImgUrl] = useState(user.imgUrl);
   const [isLoading, setIsLoading] = useState(false);
 
   const onJobInputChange = (e) => {
@@ -51,35 +50,35 @@ const UserInfo = ({ user }) => {
   };
   const onImageInputChange = (e) => {
     e.preventDefault();
-    console.log(e.target)
+    console.log(e.target);
     if (e.target.files[0].size > 1000000) {
       console.log("File too large");
     } else {
       var reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
-        reader.onload = () => {
-        const result =  reader.result;
+      reader.onload = () => {
+        const result = reader.result;
         const base64String = result.replace(/^data:image\/[a-z]+;base64,/, "");
         setImgUrl(base64String);
         setFormData({ ...formData, imgUrl: base64String });
-       
       };
       reader.onerror = (error) => {
         console.log("Error: ", error);
       };
     }
-
   };
 
-  const onFormSubmit = async(e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const newUser = await updateUserInfo(user._id, formData);
-    if(newUser){
-      notificationService.showSuccess('User info updated successfully', 'userInfoUpdate');
+    if (newUser) {
+      notificationService.showSuccess(
+        "User info updated successfully",
+        "userInfoUpdate"
+      );
       setIsLoading(false);
     }
-    
   };
 
   return (
@@ -89,14 +88,14 @@ const UserInfo = ({ user }) => {
           <div className="user-edit-details-container">
             <div className="user-profile-img">
               <div className="existing-image">
-                
-                  <Avatar
-                    variant="square"
-                    src={`data:image/png;base64,${ formData.imgUrl ? imgUrl : defaultImageUrl}`}
-                    alt="user profile pic"
-                    sx={{ width: avatarSize, height: avatarSize }}
-                  />
-               
+                <Avatar
+                  variant="square"
+                  src={`data:image/png;base64,${
+                    formData.imgUrl ? imgUrl : defaultImageUrl
+                  }`}
+                  alt="user profile pic"
+                  sx={{ width: avatarSize, height: avatarSize }}
+                />
               </div>
               <input
                 type="file"
@@ -174,7 +173,14 @@ const UserInfo = ({ user }) => {
                   onChange={onPhoneInputChange}
                 />
               </div>
-              <button disabled = {isLoading && true} className={isLoading ? "update-user-btn-disabled" :"update-user-btn"}>Update User</button>
+              <button
+                disabled={isLoading && true}
+                className={
+                  isLoading ? "update-user-btn-disabled" : "update-user-btn"
+                }
+              >
+                Update User
+              </button>
             </form>
           </div>
         </div>

@@ -2,6 +2,7 @@
     background-color: white;
     box-shadow: 1px 1px 3px #80808052;
     gap: 20px;
+    margin: 0;
     padding: 8px 4px;
     height: 45px;
     position: sticky;

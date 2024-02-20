@@ -6,6 +6,10 @@
     box-shadow: 1px 1px 3px grey;
 }
 
+.icon-btn:hover{
+    cursor: pointer;
+}
+
 .delete{
     color : red;
     background-color: white;

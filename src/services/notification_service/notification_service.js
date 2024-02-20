@@ -1,10 +1,7 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-toast.configure();
-
 class NotificationService {
-  
   // #toastConfig = {
   //   position: "top-right",
   //   autoClose: 5000,
@@ -26,8 +23,8 @@ class NotificationService {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme : 'colored',
-      toastId: toastId
+      theme: "colored",
+      toastId: toastId,
     };
     return toast.success(message, newToastConfig);
   };
@@ -41,14 +38,14 @@ class NotificationService {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme : 'colored',
-      toastId: toastId
+      theme: "colored",
+      toastId: toastId,
     };
     return toast.error(message, newToastConfig);
   };
 
   showInfo = (message, toastId) => {
-    const newToastConfig ={
+    const newToastConfig = {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: true,
@@ -56,8 +53,8 @@ class NotificationService {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme : 'colored',
-      toastId: toastId
+      theme: "colored",
+      toastId: toastId,
     };
     toast.info(message, newToastConfig);
   };
@@ -71,9 +68,9 @@ class NotificationService {
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme : 'colored',
-      toastId: toastId
-    }
+      theme: "colored",
+      toastId: toastId,
+    };
     toast.warning(message, newToastConfig);
   };
 }

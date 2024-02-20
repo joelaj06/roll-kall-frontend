@@ -10,6 +10,12 @@
     box-shadow: 1px 1px 3px grey;
 }
 
+.app-button:hover{
+    cursor: pointer;
+}
+
+
+
 .bg-green{
     background-color: green !important;
 }
@@ -40,4 +46,5 @@
 }
 .app-button:active{
     box-shadow: inset 0 0 1px 3px white;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }

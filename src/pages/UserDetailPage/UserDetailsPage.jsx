@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "./user_details_page.css";
 import { Avatar } from "@mui/material";
@@ -25,12 +25,11 @@ const rollKallRepository = new RollKallRepository();
 const UserDetailsPage = () => {
   const params = useParams();
 
-
   //states
   const [tabIndex, setTabIndex] = useState(1);
   const [user, setUser] = useState({});
   const shouldRender = useRef(true);
- 
+
   useEffect(() => {
     if (shouldRender.current) {
       shouldRender.current = false;
@@ -151,8 +150,11 @@ const UserDetailsPage = () => {
                 tabIndex === 3 ? "active-content" : "tab-content-3 tab-content"
               }
             >
-              {Object.keys(user).length > 0 ? 
-                <UserInfo user={user } /> : <div/>}
+              {Object.keys(user).length > 0 ? (
+                <UserInfo user={user} />
+              ) : (
+                <div />
+              )}
             </div>
           </div>
         </div>

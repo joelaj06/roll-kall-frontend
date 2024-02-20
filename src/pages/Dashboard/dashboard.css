@@ -21,6 +21,7 @@
     justify-content: space-around;
     align-items: center;
     padding: 3px 20px;
+    background-color: white;
     gap: 20px;
     border: none;
     box-shadow: var(--box-shadow);

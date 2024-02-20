@@ -8,6 +8,7 @@
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
     background-color: white;
+    
     /* width: 35%; */
 }
 
@@ -18,8 +19,12 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
     color: white;
+    transition: 0.4s ease-in;
 }
 
+.search-button:hover{
+    cursor: pointer;
+}
 .search-button:active{
     border: 1px solid white;
 }
