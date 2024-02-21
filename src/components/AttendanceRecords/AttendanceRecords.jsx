@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import "./attendance_records.css";
 import {
   changeToSeconds,
@@ -31,7 +31,6 @@ const locationPin = <Place sx={{ fontSize: 15, color: "#ff8d72" }} />;
 const rollKallRepository = new RollKallRepository();
 
 const AttendanceRecords = () => {
-
   const params = useParams();
 
   let now = new Date();
@@ -86,7 +85,7 @@ const AttendanceRecords = () => {
           params.userId,
           startDate,
           endDate,
-          'all'
+          "all"
         );
         if (!leaves) return;
         setLeaves(leaves);
@@ -94,7 +93,6 @@ const AttendanceRecords = () => {
       fetchUserLeaves();
     }
   }, [preferredDate]);
-
 
   const formateDateToString = (params) => {
     return convertDateToString(params.row.createdAt);
@@ -120,14 +118,12 @@ const AttendanceRecords = () => {
     </div>
   );
   const renderLocationCell = (params) => (
-    <Tippy  content={params.row.location}
-        theme = "light" 
-        placement="bottom">
-           <div className="clock-out-container">
-      <div className="icon">{locationPin}</div>
-      <div className="time">{params.row.location}</div>
-    </div>
-          </Tippy>
+    <Tippy content={params.row.location} theme="light" placement="bottom">
+      <div className="clock-out-container">
+        <div className="icon">{locationPin}</div>
+        <div className="time">{params.row.location}</div>
+      </div>
+    </Tippy>
   );
 
   const COLUMNS = useMemo(() => [
@@ -180,9 +176,8 @@ const AttendanceRecords = () => {
   ]);
   return (
     <div className="attendance-container">
-     
-      <AppCustomLeaveDateField 
-      onChangeDate={(date) => setPreferredDate(date)}
+      <AppCustomLeaveDateField
+        onChangeDate={(date) => setPreferredDate(date)}
       />
       <Divider></Divider>
       <div className="average-field">
@@ -288,6 +283,3 @@ const AverageFields = ({ icon, content, title }) => {
     </div>
   );
 };
-
- 
-
