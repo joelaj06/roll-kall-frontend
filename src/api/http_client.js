@@ -5,84 +5,100 @@ class HTTPClient {
   // for test
   #BASE_URL_LOCAL = "http://localhost:3000/api/";
 
-  
   #notificationService = new NotificationService();
 
-  constructor(){
-    this.token = localStorage.getItem('access_token');
+  constructor() {
+    this.token = localStorage.getItem("access_token");
   }
 
-  
   #client = axios.create({
-    baseURL: this.#BASE_URL_LOCAL,
+    baseURL: this.#BASE_URL,
     headers: {
       "Content-type": "application/json",
-      'Authorization': `${this.token}`
-  },
-    responseType: 'json'
+      Authorization: `${this.token}`,
+    },
+    responseType: "json",
   });
-
 
   get = async (endpoint) => {
     try {
       let response = await this.#client.get(endpoint, {
-        headers : {
-          'Authorization': `${this.token}`
-        }
+        headers: {
+          Authorization: `${this.token}`,
+        },
       });
       return response;
     } catch (err) {
-     // console.log(err);
-      if(err.code === "ERR_NETWORK"){
-        this.#notificationService.showError('Network Error Check Internet Connection', 'internetError');
+      // console.log(err);
+      if (err.code === "ERR_NETWORK") {
+        this.#notificationService.showError(
+          "Network Error Check Internet Connection",
+          "internetError"
+        );
         return null;
       }
       if (err.response.status !== 404) {
         const message = err.response.data.message;
         if (message) {
-          if(message.toLowerCase().includes('authorized')){
-            const newMessage = 'You need to Sign in to continue';
-            this.#notificationService.showError(newMessage, 'authorizationError');
-          }        }
+          if (message.toLowerCase().includes("authorized")) {
+            const newMessage = "You need to Sign in to continue";
+            this.#notificationService.showError(
+              newMessage,
+              "authorizationError"
+            );
+          }
+        }
       } else {
-        this.#notificationService.showError("No Server Response",'serverError');
+        this.#notificationService.showError(
+          "No Server Response",
+          "serverError"
+        );
       }
     }
   };
 
   clientPut = async (endpoint, body) => {
     try {
-      let response = await this.#client.put(endpoint, body,{
-        headers : {
-          'Authorization': `${this.token}`
-        }
+      let response = await this.#client.put(endpoint, body, {
+        headers: {
+          Authorization: `${this.token}`,
+        },
       });
       return response;
     } catch (err) {
       console.log(err);
-      if(err.code === "ERR_NETWORK"){
-        this.#notificationService.showError('Network Error Check Internet Connection', 'internetError');
+      if (err.code === "ERR_NETWORK") {
+        this.#notificationService.showError(
+          "Network Error Check Internet Connection",
+          "internetError"
+        );
         return null;
       }
       if (err.response.status !== 404) {
-        const message =  err.response.data.message;
+        const message = err.response.data.message;
         if (message) {
-          if(message.toLowerCase().includes('authorized')){
-            const newMessage = 'You need to Sign in to continue';
-            this.#notificationService.showError(newMessage, 'authorizationError');
+          if (message.toLowerCase().includes("authorized")) {
+            const newMessage = "You need to Sign in to continue";
+            this.#notificationService.showError(
+              newMessage,
+              "authorizationError"
+            );
           }
         }
       } else {
-        this.#notificationService.showError("No Server Response", 'serverError');
+        this.#notificationService.showError(
+          "No Server Response",
+          "serverError"
+        );
       }
     }
   };
   post = async (endpoint, body) => {
     try {
       let response = await this.#client.post(endpoint, body, {
-        headers : {
-          'Authorization': `${this.token}`
-        }
+        headers: {
+          Authorization: `${this.token}`,
+        },
       });
       return response;
     } catch (err) {
@@ -92,17 +108,20 @@ class HTTPClient {
           console.log(message);
           this.#notificationService.showError(message);
         }
-      } else  {
-        this.#notificationService.showError("No Server Response", 'serverError');
+      } else {
+        this.#notificationService.showError(
+          "No Server Response",
+          "serverError"
+        );
       }
     }
   };
   delete = async (endpoint) => {
     try {
       let response = await this.#client.delete(endpoint, {
-        headers : {
-          'Authorization': `${this.token}`
-        }
+        headers: {
+          Authorization: `${this.token}`,
+        },
       });
       return response;
     } catch (err) {
