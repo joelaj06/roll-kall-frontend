@@ -262,9 +262,9 @@ const AddUser = ({ closeModal, refresh }) => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setShowPassword(!showPassword)}
                     // onMouseDown={handleMouseDownPassword}
-                  >
+                    onClick={() => setShowPassword(!showPassword)}
+                    size="large">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
@@ -288,9 +288,9 @@ const AddUser = ({ closeModal, refresh }) => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setShowPassword(!showPassword)}
                     // onMouseDown={handleMouseDownPassword}
-                  >
+                    onClick={() => setShowPassword(!showPassword)}
+                    size="large">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
